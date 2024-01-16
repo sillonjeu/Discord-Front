@@ -21,6 +21,7 @@ class _FriendsListPageState extends State<FriendsListPage> {
     'Friend 3',
     'Friend 4',
   ];
+  // 더미 데이터
 
   Set<String> _invitedFriends = {};
   List<String> _invitedFriendsDisplay = [];
@@ -43,20 +44,21 @@ class _FriendsListPageState extends State<FriendsListPage> {
       Server(
         name: 'Server 1',
         invitedFriends: ['Friend A', 'Friend B'],
-        image: null, // 이미지 경로 또는 파일을 지정하세요
+        image: null,
       ),
       Server(
         name: 'Server 2',
         invitedFriends: ['Friend C', 'Friend D'],
-        image: null, // 이미지 경로 또는 파일을 지정하세요
+        image: null,
       ),
       Server(
         name: 'Server 3',
         invitedFriends: ['Friend E', 'Friend F'],
-        image: null, // 이미지 경로 또는 파일을 지정하세요
+        image: null,
       ),
     ];
 
+    // api 연동 필요
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -70,6 +72,7 @@ class _FriendsListPageState extends State<FriendsListPage> {
     );
   }
 
+  // 더미 데이터
   String _invitedLink = "https://invite.link/to/server";
 
   @override
