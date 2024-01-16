@@ -6,6 +6,8 @@ import 'package:hansori/screen/home_screen.dart';
 
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -90,7 +92,9 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       //resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text('Hansori Discord'),
+        title: Text(
+            'Hansori Discord',
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -115,6 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: 20.0),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center, // center, end, start
               children: <Widget>[
                 ElevatedButton(
                   onPressed: _login,
