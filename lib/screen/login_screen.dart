@@ -117,8 +117,6 @@ class _LoginScreenState extends State<LoginScreen> {
             SingleChildScrollView(
               child: Center(
                 child: Container(
-
-
                   margin: EdgeInsets.symmetric(vertical: 100.0, horizontal: 40.0),
                   padding: EdgeInsets.only(top: 32.0, bottom: 32.0, left: 16.0, right: 16.0),
                   decoration: BoxDecoration(
@@ -185,39 +183,39 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       SizedBox(height: 20.0), // 간격 조절
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          ElevatedButton(
-                            onPressed: _login,
-                            child: Text(
-                              'Login',
-                              style: TextStyle(color: Colors.white), // 텍스트 색상 설정
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Palette.btnColor, // 버튼 배경색
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6.0), // 모서리 둥글기 설정
-                              ),
+                      Container(
+                        width: double.infinity, // 버튼의 너비를 화면 폭 전체로 설정
+                        child: ElevatedButton(
+                          onPressed: _login,
+                          child: Text(
+                            'Login',
+                            style: TextStyle(color: Colors.white), // 텍스트 색상 설정
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Palette.btnColor, // 버튼 배경색
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(3.0), // 모서리 둥글기 설정
                             ),
                           ),
-                          SizedBox(width: 16.0),
-                          ElevatedButton(
-                            onPressed: _signup,
-                            child: Text(
-                              'Signup',
-                              style: TextStyle(color: Colors.white), // 텍스트 색상 설정
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Palette.btnColor, // 버튼 배경색
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6.0), // 모서리 둥글기 설정
-                              ),
+                        ),
+                      ),
+                      SizedBox(height: 8.0),
+                      Container(
+                        width: double.infinity, // 버튼의 너비를 화면 폭 전체로 설정
+                        child: ElevatedButton(
+                          onPressed: _signup,
+                          child: Text(
+                            'Signup',
+                            style: TextStyle(color: Colors.black), // 텍스트 색상 설정
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white, // 버튼 배경색
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(3.0), // 모서리 둥글기 설정
                             ),
                           ),
-                        ],
-                      )
-
+                        ),
+                      ),
 
                     ],
                   ),
@@ -229,6 +227,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
 
   @override
   void dispose() {

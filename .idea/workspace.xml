@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e338c6f2-8069-4da0-b99a-8fc05e2b2eb0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/asset/img/castle_emailverify_image.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset/img/discord_login_background.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screen/emailverify_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/emailverify_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screen/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/login_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screen/signup_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/signup_screen.dart" afterDir="false" />
     </list>
@@ -113,7 +116,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705691981860</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="fix: signup_screen.dart login_screen.dart form validation logic fixed">
+      <option name="closed" value="true" />
+      <created>1705692237776</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1705692237776</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -122,6 +133,7 @@
     <MESSAGE value="feat: login_screen.dart background, Color init" />
     <MESSAGE value="feat: login_screen.dart almost done and signup_screen.dart init" />
     <MESSAGE value="feat: signup_screen.dart done" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: signup_screen.dart done" />
+    <MESSAGE value="fix: signup_screen.dart login_screen.dart form validation logic fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: signup_screen.dart login_screen.dart form validation logic fixed" />
   </component>
 </project>

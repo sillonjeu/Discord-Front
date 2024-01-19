@@ -113,35 +113,47 @@ class EmailVerificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        //automaticallyImplyLeading: false, // 뒤로 가기 버튼을 제거
         title: Text('Email Verification'),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'An email has been sent to your email address. '
-                  'Please check your email and follow the instructions to verify your account.',
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 24.0),
-            ElevatedButton(
-              onPressed: () {
-                // 사용자가 이메일을 확인한 후 _verify 함수 호출
-                _verify(context);
-              },
-              child: Text('Verified'),
-            ),
-            TextButton(
-              onPressed: () {
-                _resendEmail(context);
-              },
-              child: Text('Resend Email'),
-            ),
-          ],
+      body: Container(
+        color: Colors.white, // 배경색 설정
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'An email has been sent to your email address. '
+                    'Please check your email and follow the instructions to verify your account.',
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 24.0),
+              ElevatedButton(
+                onPressed: () {
+                  // 사용자가 이메일을 확인한 후 _verify 함수 호출
+                  _verify(context);
+                },
+                child: Text('Verified'),
+              ),
+              TextButton(
+                onPressed: () {
+                  _resendEmail(context);
+                },
+                child: Text('Resend Email'),
+              ),
+              TextButton(
+                onPressed: () {
+                  // 'Change Email' 버튼을 눌렀을 때의 동작
+                  Navigator.pop(context);
+                },
+                child: Text('Change Email'),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
+
 }
