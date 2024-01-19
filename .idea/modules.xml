@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/discord_front.iml" filepath="$PROJECT_DIR$/discord_front.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/discord_front_android.iml" filepath="$PROJECT_DIR$/android/discord_front_android.iml" />
     </modules>
   </component>
 </project>
