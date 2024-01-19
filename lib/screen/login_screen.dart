@@ -158,6 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           fillColor: Palette.blackColor4, // 텍스트 필드 배경색
                           filled: true,
                         ),
+                        keyboardType: TextInputType.emailAddress,
                       ),
                       SizedBox(height: 16.0), // 간격 조절
                       Align(
