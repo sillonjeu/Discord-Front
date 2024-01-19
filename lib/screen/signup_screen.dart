@@ -82,54 +82,72 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text('Signup'),
+        automaticallyImplyLeading: true, // 뒤로가기 버튼을 유지
+        backgroundColor: Colors.transparent, // 배경색을 투명하게 설정
+        elevation: 0, // 그림자 제거
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              //mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                TextFormField(
-                  controller: _usernameController,
-                  decoration: InputDecoration(
-                    labelText: 'Username',
-                    border: OutlineInputBorder(),
-                  ),
+      body: Stack(
+        children: [
+          // 배경 이미지 설정
+          Image.asset(
+            'asset/img/discord_signup_background.png', // 배경 이미지 경로 수정 필요
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: double.infinity,
+          ),
+          // 네모 모양의 컨테이너
+          Center(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.8, // 화면 너비의 80%
+              padding: EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.7), // 투명도 조절 가능
+                borderRadius: BorderRadius.circular(20.0), // 모서리 둥글기 설정
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    TextFormField(
+                      controller: _usernameController,
+                      decoration: InputDecoration(
+                        labelText: 'Username',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    SizedBox(height: 16.0),
+                    TextFormField(
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        labelText: 'Email',
+                        border: OutlineInputBorder(),
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    SizedBox(height: 16.0),
+                    TextFormField(
+                      controller: _passwordController,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    SizedBox(height: 20.0),
+                    ElevatedButton(
+                      onPressed: _registerAccount,
+                      child: Text('Register'),
+                    ),
+                  ],
                 ),
-                SizedBox(height: 16.0),
-                TextFormField(// TODO: 이메일 형태체크하는 코드 이메일 형태 아니면 에러뱉어야 함.
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(),
-                  ),
-                  keyboardType: TextInputType.emailAddress, //<<-- 이거 좀 사소한 거임. TODO: 다른 페이지 이메일 버튼에도 추가해야됨
-                ),
-                SizedBox(height: 16.0),
-                TextFormField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                SizedBox(height: 20.0),
-                ElevatedButton(
-                  onPressed: _registerAccount,
-                  child: Text('Register'),
-                ),
-              ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
+
 
   @override
   void dispose() {

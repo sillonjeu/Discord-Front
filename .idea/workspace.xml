@@ -5,15 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e338c6f2-8069-4da0-b99a-8fc05e2b2eb0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/asset/img/discord_login_background.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/discord_mobile_background.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/asset/img/discord_signup_background.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/config/palette.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screen/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/login_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screen/signup_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/signup_screen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,12 +89,21 @@
       <option name="project" value="LOCAL" />
       <updated>1705490651873</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="feat: login_screen.dart background, Color init">
+      <option name="closed" value="true" />
+      <created>1705677555463</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1705677555463</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: re initiate project, to organize folder structure" />
     <MESSAGE value="feat: login skeleton" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: login skeleton" />
+    <MESSAGE value="feat: login_screen.dart background, Color init" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: login_screen.dart background, Color init" />
   </component>
 </project>

@@ -20,6 +20,16 @@ class _LoginScreenState extends State<LoginScreen> {
     final String email = _emailController.text;
     final String password = _passwordController.text;
 
+    // Email 형식 체크
+    if (email.isEmpty || !email.contains('@') || password.isEmpty || !(password.length < 6)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('유효한 Email또는 Password를 입력해주세요'),
+        ),
+      );
+      return; // 이메일이 유효하지 않으면 함수 종료
+    }
+
     // final response = await http.post(
     //   Uri.parse('http://your-backend-url.com/login'), // 백엔드 URL 수정 필요
     //   headers: <String, String>{
@@ -107,6 +117,8 @@ class _LoginScreenState extends State<LoginScreen> {
             SingleChildScrollView(
               child: Center(
                 child: Container(
+
+
                   margin: EdgeInsets.symmetric(vertical: 100.0, horizontal: 40.0),
                   padding: EdgeInsets.only(top: 32.0, bottom: 32.0, left: 16.0, right: 16.0),
                   decoration: BoxDecoration(
@@ -125,56 +137,49 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       SizedBox(height: 32.0),
-                      Text(
-                        'Email', // Email 텍스트
-                        style: TextStyle(
-                          color: Colors.white, // 텍스트 색상
-                          fontSize: 16.0, // 텍스트 크기
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Email', // Email 텍스트
+                          style: TextStyle(
+                            color: Colors.white, // 텍스트 색상
+                            fontSize: 16.0, // 텍스트 크기
+                          ),
                         ),
                       ),
                       SizedBox(height: 8.0), // 간격 조절
                       TextFormField(
-                        // TODO: 이메일 형태체크하는 코드
                         controller: _emailController,
+                        style: TextStyle(color: Colors.white), // 입력된 글자 색상 설정
                         decoration: InputDecoration(
-                          labelText: '', // 라벨 텍스트를 빈 문자열로 설정하여 라벨 없앰
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0), // 텍스트 필드의 모서리 둥글기
+                            borderRadius: BorderRadius.circular(5.0), // 텍스트 필드의 모서리 둥글기
                           ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.blue, // 텍스트 필드 선택 시 테두리 색깔
-                            ),
-                            borderRadius: BorderRadius.circular(10.0), // 선택된 텍스트 필드의 모서리 둥글기
-                          ),
-                          fillColor: Colors.grey[200], // 텍스트 필드 배경색
+                          fillColor: Palette.blackColor4, // 텍스트 필드 배경색
                           filled: true,
                         ),
                       ),
                       SizedBox(height: 16.0), // 간격 조절
-                      Text(
-                        'Password', // Password 텍스트
-                        style: TextStyle(
-                          color: Colors.white, // 텍스트 색상
-                          fontSize: 16.0, // 텍스트 크기
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Password', // Password 텍스트
+                          style: TextStyle(
+                            color: Colors.white, // 텍스트 색상
+                            fontSize: 16.0, // 텍스트 크기
+                          ),
                         ),
                       ),
                       SizedBox(height: 8.0), // 간격 조절
                       TextFormField(
                         controller: _passwordController,
+                        style: TextStyle(color: Colors.white), // 입력된 글자 색상 설정
                         obscureText: true,
                         decoration: InputDecoration(
-                          labelText: '', // 라벨 텍스트를 빈 문자열로 설정하여 라벨 없앰
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0), // 텍스트 필드의 모서리 둥글기
+                            borderRadius: BorderRadius.circular(5.0), // 텍스트 필드의 모서리 둥글기
                           ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.blue, // 텍스트 필드 선택 시 테두리 색깔
-                            ),
-                            borderRadius: BorderRadius.circular(10.0), // 선택된 텍스트 필드의 모서리 둥글기
-                          ),
-                          fillColor: Colors.grey[200], // 텍스트 필드 배경색
+                          fillColor: Palette.blackColor4, // 텍스트 필드 배경색
                           filled: true,
                         ),
                       ),
@@ -184,21 +189,35 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: <Widget>[
                           ElevatedButton(
                             onPressed: _login,
-                            child: Text('Login'),
+                            child: Text(
+                              'Login',
+                              style: TextStyle(color: Colors.white), // 텍스트 색상 설정
+                            ),
                             style: ElevatedButton.styleFrom(
-                              primary: Colors.blue, // 버튼 배경색
+                              backgroundColor: Palette.btnColor, // 버튼 배경색
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6.0), // 모서리 둥글기 설정
+                              ),
                             ),
                           ),
                           SizedBox(width: 16.0),
                           ElevatedButton(
                             onPressed: _signup,
-                            child: Text('Signup'),
+                            child: Text(
+                              'Signup',
+                              style: TextStyle(color: Colors.white), // 텍스트 색상 설정
+                            ),
                             style: ElevatedButton.styleFrom(
-                              primary: Colors.green, // 버튼 배경색
+                              backgroundColor: Palette.btnColor, // 버튼 배경색
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6.0), // 모서리 둥글기 설정
+                              ),
                             ),
                           ),
                         ],
-                      ),
+                      )
+
+
                     ],
                   ),
                 ),
