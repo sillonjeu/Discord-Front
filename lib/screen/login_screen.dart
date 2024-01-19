@@ -21,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final String password = _passwordController.text;
 
     // Email 형식 체크
-    if (email.isEmpty || !email.contains('@') || password.isEmpty || !(password.length < 6)) {
+    if (email.isEmpty || !email.contains('@') || password.isEmpty || password.length < 6) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('유효한 Email또는 Password를 입력해주세요'),

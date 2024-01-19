@@ -19,6 +19,15 @@ class _SignupScreenState extends State<SignupScreen> {
     final String password = _passwordController.text;
     final String email = _emailController.text;
 
+    if (email.isEmpty || !email.contains('@') || password.isEmpty || password.length < 6 || username.length < 3) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('유효한 폼을 작성해주세요'),
+        ),
+      );
+      return; // 이메일이 유효하지 않으면 함수 종료
+    }
+
     // final response = await http.post(
     //   Uri.parse('http://your-backend-url.com/signup'), // 백엔드 URL 수정 필요
     //   headers: <String, String>{
