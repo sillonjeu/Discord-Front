@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e338c6f2-8069-4da0-b99a-8fc05e2b2eb0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/asset/img/castle_emailverify_image.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/asset/img/discord_login_background.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screen/emailverify_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/emailverify_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screen/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/login_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screen/signup_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/signup_screen.dart" afterDir="false" />
@@ -36,12 +34,13 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
+    "ScreenRecorder.SavePath": "C:\\Users\\dawon\\Videos\\hansori",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "Lee",
     "io.flutter.reload.alreadyRun": "true",
-    "last_opened_file_path": "C:/Users/dawon/programming/git/discord_front/asset/img",
+    "last_opened_file_path": "C:/Users/dawon/Videos/hansori",
     "show.migrate.to.gradle.popup": "false"
   }
 }]]></component>
@@ -124,7 +123,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705692237776</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="feat: signup_screen.dart login_screen.dart button change">
+      <option name="closed" value="true" />
+      <created>1705702151197</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1705702151197</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -134,6 +141,7 @@
     <MESSAGE value="feat: login_screen.dart almost done and signup_screen.dart init" />
     <MESSAGE value="feat: signup_screen.dart done" />
     <MESSAGE value="fix: signup_screen.dart login_screen.dart form validation logic fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: signup_screen.dart login_screen.dart form validation logic fixed" />
+    <MESSAGE value="feat: signup_screen.dart login_screen.dart button change" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: signup_screen.dart login_screen.dart button change" />
   </component>
 </project>

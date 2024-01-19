@@ -97,62 +97,36 @@ class _SignupScreenState extends State<SignupScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Signup Error'),
-          content: Text(message),
+          backgroundColor: Palette.blackColor1, // 다이얼로그 배경색 설정
+          title: Text(
+            'Signup Error',
+            style: TextStyle(color: Colors.white), // 다이얼로그 제목 텍스트 색상 설정
+          ),
+          content: Text(
+            message,
+            style: TextStyle(color: Colors.white), // 다이얼로그 내용 텍스트 색상 설정
+          ),
           actions: <Widget>[
-            TextButton(
-              child: Text('Close'),
+            ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
+              child: Text(
+                'Close',
+                style: TextStyle(color: Colors.black), // 텍스트 색상 설정
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white, // 버튼 배경색
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(3.0), // 모서리 둥글기 설정
+                ),
+              ),
             ),
           ],
         );
       },
     );
   }
-
-// 연, 월, 일을 선택할 수 있는 드롭다운을 생성하는 함수
-//   Widget _buildDropdown(List<String> items, String selectedValue, void Function(String?)? onChanged) {
-//     return Expanded(
-//       child: DropdownButtonFormField<String>(
-//         value: selectedValue,
-//         onChanged: onChanged,
-//         items: items.map((String item) {
-//           return DropdownMenuItem<String>(
-//             value: item,
-//             child: Text(item),
-//           );
-//         }).toList(),
-//         decoration: InputDecoration(
-//           filled: true,
-//           fillColor: Palette.blackColor4,
-//           contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
-//           enabledBorder: OutlineInputBorder(
-//             borderRadius: BorderRadius.circular(5.0),
-//             borderSide: BorderSide(color: Colors.transparent),
-//           ),
-//           focusedBorder: OutlineInputBorder(
-//             borderRadius: BorderRadius.circular(5.0),
-//             borderSide: BorderSide(color: Colors.transparent),
-//           ),
-//           errorBorder: OutlineInputBorder(
-//             borderRadius: BorderRadius.circular(5.0),
-//             borderSide: BorderSide(color: Colors.transparent),
-//           ),
-//           focusedErrorBorder: OutlineInputBorder(
-//             borderRadius: BorderRadius.circular(5.0),
-//             borderSide: BorderSide(color: Colors.transparent),
-//           ),
-//         ),
-//         selectedItemBuilder: (BuildContext context) {
-//           return items.map<Widget>((String item) {
-//             return Text(item, style: TextStyle(color: Colors.white)); // 선택된 항목의 텍스트 색상을 변경
-//           }).toList();
-//         },
-//       ),
-//     );
-//   }
 
   Widget _buildDropdown2(List<String> items, String selectedValue, void Function(String?)? onChanged) {
     return Expanded(

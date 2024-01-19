@@ -21,7 +21,10 @@ class _LoginScreenState extends State<LoginScreen> {
     final String password = _passwordController.text;
 
     // Email 형식 체크
-    if (email.isEmpty || !email.contains('@') || password.isEmpty || password.length < 6) {
+    if (email.isEmpty ||
+        !email.contains('@') ||
+        password.isEmpty ||
+        password.length < 6) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('유효한 Email또는 Password를 입력해주세요'),
@@ -75,14 +78,30 @@ class _LoginScreenState extends State<LoginScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Login Error'),
-          content: Text(message),
+          backgroundColor: Palette.blackColor1, // 다이얼로그 배경색 설정
+          title: Text(
+            'Login Error',
+            style: TextStyle(color: Colors.white), // 다이얼로그 제목 텍스트 색상 설정
+          ),
+          content: Text(
+            message,
+            style: TextStyle(color: Colors.white), // 다이얼로그 내용 텍스트 색상 설정
+          ),
           actions: <Widget>[
-            TextButton(
-              child: Text('Close'),
+            ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
+              child: Text(
+                'Close',
+                style: TextStyle(color: Colors.black), // 텍스트 색상 설정
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white, // 버튼 배경색
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(3.0), // 모서리 둥글기 설정
+                ),
+              ),
             ),
           ],
         );
@@ -117,8 +136,10 @@ class _LoginScreenState extends State<LoginScreen> {
             SingleChildScrollView(
               child: Center(
                 child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 100.0, horizontal: 40.0),
-                  padding: EdgeInsets.only(top: 32.0, bottom: 32.0, left: 16.0, right: 16.0),
+                  margin:
+                      EdgeInsets.symmetric(vertical: 100.0, horizontal: 40.0),
+                  padding: EdgeInsets.only(
+                      top: 32.0, bottom: 32.0, left: 16.0, right: 16.0),
                   decoration: BoxDecoration(
                     color: Palette.blackColor1, // 배경색
                     borderRadius: BorderRadius.circular(20.0), // 모서리 둥글게
@@ -151,7 +172,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: TextStyle(color: Colors.white), // 입력된 글자 색상 설정
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0), // 텍스트 필드의 모서리 둥글기
+                            borderRadius:
+                                BorderRadius.circular(5.0), // 텍스트 필드의 모서리 둥글기
                           ),
                           fillColor: Palette.blackColor4, // 텍스트 필드 배경색
                           filled: true,
@@ -176,7 +198,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         obscureText: true,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0), // 텍스트 필드의 모서리 둥글기
+                            borderRadius:
+                                BorderRadius.circular(5.0), // 텍스트 필드의 모서리 둥글기
                           ),
                           fillColor: Palette.blackColor4, // 텍스트 필드 배경색
                           filled: true,
@@ -194,7 +217,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Palette.btnColor, // 버튼 배경색
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(3.0), // 모서리 둥글기 설정
+                              borderRadius:
+                                  BorderRadius.circular(3.0), // 모서리 둥글기 설정
                             ),
                           ),
                         ),
@@ -211,12 +235,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white, // 버튼 배경색
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(3.0), // 모서리 둥글기 설정
+                              borderRadius:
+                                  BorderRadius.circular(3.0), // 모서리 둥글기 설정
                             ),
                           ),
                         ),
                       ),
-
                     ],
                   ),
                 ),
@@ -227,7 +251,6 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
 
   @override
   void dispose() {

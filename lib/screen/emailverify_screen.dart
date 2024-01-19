@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:discord_front/config/palette.dart';
 
 class EmailVerificationScreen extends StatelessWidget {
   final String useremail;
 
-  const EmailVerificationScreen({Key? key, required this.useremail}) : super(key: key);
+  const EmailVerificationScreen({Key? key, required this.useremail})
+      : super(key: key);
 
   Future<void> _verify(BuildContext context) async {
     final String email = this.useremail;
@@ -40,12 +42,13 @@ class EmailVerificationScreen extends StatelessWidget {
         Navigator.popUntil(context, (route) => route.isFirst);
       } else {
         // 이메일이 확인되지 않았을 때
-        _showDialog(
-            context, 'Your email could not be verified.', 'Email Verification Failed');
+        _showDialog(context, 'Your email could not be verified.',
+            'Email Verification Failed');
       }
     } else {
       // 서버 에러 또는 기타 오류
-      _showDialog(context, 'Error: ${response.statusCode}', 'Email Verification Error');
+      _showDialog(
+          context, 'Error: ${response.statusCode}', 'Email Verification Error');
     }
   }
 
@@ -106,27 +109,31 @@ class EmailVerificationScreen extends StatelessWidget {
     }
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        //automaticallyImplyLeading: false, // 뒤로 가기 버튼을 제거
-        title: Text('Email Verification'),
+        backgroundColor: Palette.blackColor1, // 앱바 배경색 설정
+        iconTheme: IconThemeData(color: Colors.white), // 뒤로가기 버튼 색상 설정
       ),
       body: Container(
-        color: Colors.white, // 배경색 설정
+        color: Palette.blackColor1, // 배경색 설정
         child: Padding(
           padding: EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Image.asset(
+                'asset/img/castle_emailverify_image.png', // 이미지 경로 설정
+                width: 150, // 이미지 너비 조절
+                height: 150, // 이미지 높이 조절
+              ),
+              SizedBox(height: 24.0),
               Text(
                 'An email has been sent to your email address. '
-                    'Please check your email and follow the instructions to verify your account.',
+                'Please check your email and follow the instructions to verify your account.',
                 textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white), // 텍스트 색상 변경
               ),
               SizedBox(height: 24.0),
               ElevatedButton(
@@ -134,20 +141,47 @@ class EmailVerificationScreen extends StatelessWidget {
                   // 사용자가 이메일을 확인한 후 _verify 함수 호출
                   _verify(context);
                 },
-                child: Text('Verified'),
+                child: Text('Verified', style: TextStyle(color: Colors.white)),
+                // 텍스트 색상 변경
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Palette.btnColor, // 버튼 배경색 설정
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5.0), // 모서리 둥글기 설정
+                  ),
+                ),
               ),
-              TextButton(
+              SizedBox(height: 12.0),
+              ElevatedButton(
                 onPressed: () {
                   _resendEmail(context);
                 },
-                child: Text('Resend Email'),
+                child:
+                    Text('Resend Email', style: TextStyle(color: Colors.white)),
+                // 텍스트 색상 변경
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white, backgroundColor: Palette.blackColor1, // 텍스트 색상 설정
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(color: Colors.white), // 경계선 색상 설정
+                    borderRadius: BorderRadius.circular(5.0), // 모서리 둥글기 설정
+                  ),
+                ),
               ),
-              TextButton(
+              SizedBox(height: 12.0),
+              ElevatedButton(
                 onPressed: () {
                   // 'Change Email' 버튼을 눌렀을 때의 동작
                   Navigator.pop(context);
                 },
-                child: Text('Change Email'),
+                child:
+                    Text('Change Email', style: TextStyle(color: Colors.white)),
+                // 텍스트 색상 변경
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white, backgroundColor: Palette.blackColor1, // 텍스트 색상 설정
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(color: Colors.white), // 경계선 색상 설정
+                    borderRadius: BorderRadius.circular(5.0), // 모서리 둥글기 설정
+                  ),
+                ),
               ),
             ],
           ),
@@ -155,5 +189,4 @@ class EmailVerificationScreen extends StatelessWidget {
       ),
     );
   }
-
 }
