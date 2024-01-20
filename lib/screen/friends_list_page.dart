@@ -9,7 +9,6 @@ class FriendsListPage extends StatefulWidget {
 
   FriendsListPage({Key? key, required this.server, required this.useremail})
       : super(key: key);
-
   @override
   _FriendsListPageState createState() => _FriendsListPageState();
 }
@@ -34,6 +33,44 @@ class _FriendsListPageState extends State<FriendsListPage> {
     });
   }
 
+  // 백엔드 서버로 데이터를 보내는 함수. 실제 연동 시 주석을 제거하기
+  Future<void> _sendServerData() async {
+    /*
+    var uri = Uri.parse('http://ec2-43-202-89-80.ap-northeast-2.compute.amazonaws.com:8080/server');
+    var request = http.MultipartRequest('POST', uri);
+
+    // 서버 이미지 파일이 있으면 요청에 추가
+    if (widget.server.image != null) {
+      request.files.add(
+        http.MultipartFile(
+          'serverImage',
+          widget.server.image.readAsBytes().asStream(),
+          widget.server.image.lengthSync(),
+          filename: widget.server.image.path.split("/").last,
+        ),
+      );
+    }
+    // 서버 정보를 JSON 형태로 변환하여 요청에 추가
+    request.fields['serverInfo'] = json.encode({
+      'name': widget.server.name,
+      'description': widget.server.description,
+    });
+
+    // 초대된 친구 목록을 JSON 형태로 변환하여 요청에 추가
+    request.fields['friendList'] = json.encode(_invitedFriends.toList());
+
+    // 요청을 보내고 결과를 받기
+    var response = await request.send();
+
+    if (response.statusCode == 200) {
+      // 성공적으로 데이터가 전송되었을 때의 처리를 여기에 작성 나중에 해야징~
+    } else {
+      // 오류 처리
+    }
+    */
+  }
+
+
   void _skipOrComplete() {
     // Replace with actual server list logic
     List<Server> dummyServers = [
@@ -41,21 +78,25 @@ class _FriendsListPageState extends State<FriendsListPage> {
         name: 'Server 1',
         image: File('lib/assets/default_server_image.png'),
         invitedFriends: ["Q", "B", "C"],
+        description: "Server 1",
       ),
       Server(
         name: 'Server 2',
         image: File('lib/assets/default_server_image.png'),
         invitedFriends: ["Q", "B", "C"],
+        description: "Server 2",
       ),
       Server(
         name: 'Server 3',
         image: File('lib/assets/default_server_image.png'),
         invitedFriends: ["Q", "B", "C"],
+        description: "Server 3",
       ),
       Server(
         name: 'Server 4',
         image: File('lib/assets/default_server_image.png'),
         invitedFriends: ["Q", "B", "C"],
+        description: "Server 4",
       ),
       // 추가 서버 정보를 여기에 포함시킵니다.
     ];
@@ -69,6 +110,7 @@ class _FriendsListPageState extends State<FriendsListPage> {
           serverImage: widget.server.image,
           serverList: dummyServers, // Replace with actual data
           useremail: widget.useremail,
+          description: widget.server.description,
         ),
       ),
     );

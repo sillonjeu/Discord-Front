@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:discord_front/config/server.dart';
-import 'package:discord_front/config/server_list.dart';
-import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:discord_front/config/server_list.dart';
 import 'package:discord_front/screen/friends_list_page.dart';
 
 class CreateServerPage extends StatefulWidget {
@@ -18,6 +18,7 @@ class CreateServerPage extends StatefulWidget {
 class _CreateServerPageState extends State<CreateServerPage> {
   final _formKey = GlobalKey<FormState>();
   final _serverNameController = TextEditingController();
+  final _serverDescriptionController = TextEditingController();
   File? _image;
 
   Future<void> _pickImage() async {
@@ -31,16 +32,15 @@ class _CreateServerPageState extends State<CreateServerPage> {
 
   void _createServer() {
     if (_formKey.currentState!.validate()) {
-      // _image가 null일 경우 기본 이미지 사용
       File imageFile = _image ?? File('lib/assets/default_server_image.png');
 
       Server newServer = Server(
         name: _serverNameController.text,
+        description: _serverDescriptionController.text, // 서버 설명 추가
+        image: imageFile,
         invitedFriends: [],
-        image: imageFile, // null 체크 후 사용
       );
 
-      // ServerList에 새로운 서버 추가
       Provider.of<ServerList>(context, listen: false).addServer(newServer);
 
       Navigator.push(
@@ -58,6 +58,7 @@ class _CreateServerPageState extends State<CreateServerPage> {
   @override
   void dispose() {
     _serverNameController.dispose();
+    _serverDescriptionController.dispose();
     super.dispose();
   }
 
@@ -97,6 +98,21 @@ class _CreateServerPageState extends State<CreateServerPage> {
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter a server name';
+                }
+                return null;
+              },
+            ),
+            SizedBox(height: 20),
+            TextFormField(
+              controller: _serverDescriptionController,
+              decoration: InputDecoration(
+                labelText: 'Server Description',
+                border: OutlineInputBorder(),
+              ),
+              maxLines: 3,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter a server description';
                 }
                 return null;
               },

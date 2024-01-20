@@ -11,6 +11,7 @@ class ServerPage extends StatefulWidget {
   final File? serverImage;
   final List<Server> serverList;
   final String useremail;
+  final String description;
 
   ServerPage({
     required this.serverName,
@@ -18,6 +19,7 @@ class ServerPage extends StatefulWidget {
     this.serverImage,
     required this.serverList,
     required this.useremail,
+    required this.description,
   });
 
   @override
@@ -80,6 +82,7 @@ class _ServerPageState extends State<ServerPage> {
                       serverImage: server.image,
                       serverList: widget.serverList,
                       useremail: widget.useremail,
+                      description: widget.description,
                     ),
                   ),
                 );
