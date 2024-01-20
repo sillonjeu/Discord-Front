@@ -4,6 +4,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:discord_front/screen/home_screen.dart';
 import 'package:discord_front/config/palette.dart';
+import 'package:discord_front/config/baseurl.dart';
+import 'package:discord_front/auth/token_manager.dart';
+
+import 'package:discord_front/auth/auth_provider.dart';
+import 'package:provider/provider.dart'; // Provider 패키지 추가
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -19,6 +24,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> _login() async {
     final String email = _emailController.text;
     final String password = _passwordController.text;
+    final String accessToken;
+    final String refreshToken;
 
     // Email 형식 체크
     if (email.isEmpty ||
@@ -34,13 +41,13 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     // final response = await http.post(
-    //   Uri.parse('http://your-backend-url.com/login'), // 백엔드 URL 수정 필요
+    //   Uri.parse(Baseurl.baseurl+'/login'), // 백엔드 URL 수정 필요
     //   headers: <String, String>{
     //     'Content-Type': 'application/json',
     //   },
     //   body: jsonEncode(<String, String>{
-    //     'password': password,
     //     'email': email,
+    //     'password': password,
     //   }),
     // );
 
@@ -53,23 +60,31 @@ class _LoginScreenState extends State<LoginScreen> {
         'Content-Type': 'application/json',
       },
     );
-
+    // print("url?????");
+    // print(Baseurl.baseurl+'/login');
     // 응답 처리
     if (response.statusCode == 200) {
       final responseJson = jsonDecode(response.body);
-      if (responseJson['result']) {
-        // 로그인 성공, 홈 화면으로 이동
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => HomeScreen(useremail: email)),
-        );
-      } else {
-        // 로그인 실패
-        _showDialog('Login failed. Please check your credentials.');
-      }
+      // accessToken=responseJson["accessToken"];
+      // refreshToken=responseJson["refreshToken"];
+      // // 토큰을 SharedPreferences에 저장
+      // await TokenManager.saveTokens(accessToken, refreshToken);
+      // // 로그인 성공, 홈 화면으로 이동
+      // // AuthProvider 인스턴스 업데이트
+      // Provider.of<AuthProvider>(context, listen: false).setTokens(accessToken, refreshToken);
+
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen(useremail: email)),
+      );
+    } else if (response.statusCode == 401) {
+      // 로그인 실패
+      _showDialog('Login failed. Please check your credentials.');
     } else {
       // 서버 에러 또는 기타 오류
       _showDialog('Error: ${response.statusCode}');
+
     }
   }
 

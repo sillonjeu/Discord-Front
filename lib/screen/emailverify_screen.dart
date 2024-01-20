@@ -9,68 +9,44 @@ class EmailVerificationScreen extends StatelessWidget {
   const EmailVerificationScreen({Key? key, required this.useremail})
       : super(key: key);
 
-  Future<void> _verify(BuildContext context) async {
-    final String email = this.useremail;
-    // TODO: 백엔드에 대한 HTTP 요청을 보내서 이메일 확인 여부를 확인
 
-    // 가상의 응답 생성
-    // 백엔드 구현이 완료되면 실제 HTTP 요청으로 대체
-    // final response = await http.post(
-    //   Uri.parse('http://your-backend-url.com/login'), // 백엔드 URL 수정 필요
-    //   headers: <String, String>{
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: jsonEncode(<String, String>{
-    //     'email': email,
-    //   }),
-    // );
 
-    // 가상의 응답 생성
-    // 백엔드 구현이 완료되면 실제 HTTP 요청으로 대체
-    final response = http.Response(
-      jsonEncode({'result': false}), // true 또는 false로 변경하여 테스트
-      200, // HTTP 상태 코드
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    );
-
-    if (response.statusCode == 200) {
-      final responseJson = jsonDecode(response.body);
-      if (responseJson['result']) {
-        _showDialog(context, 'Your email has been verified.', 'Email Verified');
-        Navigator.popUntil(context, (route) => route.isFirst);
-      } else {
-        // 이메일이 확인되지 않았을 때
-        _showDialog(context, 'Your email could not be verified.',
-            'Email Verification Failed');
-      }
-    } else {
-      // 서버 에러 또는 기타 오류
-      _showDialog(
-          context, 'Error: ${response.statusCode}', 'Email Verification Error');
-    }
-  }
-
-  void _showDialog(BuildContext context, String message, String title) {
+  void _showDialog(BuildContext context, String message, String title, [VoidCallback? onOkPressed]) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(title),
-          content: Text(message),
+          backgroundColor: Palette.blackColor1, // 다이얼로그 배경색 설정
+          title: Text(
+            title,
+            style: TextStyle(color: Colors.white), // 다이얼로그 제목 텍스트 색상 설정
+          ),
+          content: Text(
+            message,
+            style: TextStyle(color: Colors.white), // 다이얼로그 내용 텍스트 색상 설정
+          ),
           actions: <Widget>[
-            TextButton(
-              child: Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop(); // 다이얼로그 닫기
+            ElevatedButton(
+              onPressed: onOkPressed ?? () {
+                Navigator.of(context).pop();
               },
+              child: Text(
+                'Ok',
+                style: TextStyle(color: Colors.black), // 텍스트 색상 설정
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white, // 버튼 배경색
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(3.0), // 모서리 둥글기 설정
+                ),
+              ),
             ),
           ],
         );
       },
     );
   }
+
 
   Future<void> _resendEmail(BuildContext context) async {
     final String email = this.useremail;
@@ -139,7 +115,8 @@ class EmailVerificationScreen extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   // 사용자가 이메일을 확인한 후 _verify 함수 호출
-                  _verify(context);
+                  _showDialog(context,"그럼 다시 로그인해","eㅁㄴmail 확인됬어?",() {
+        Navigator.of(context).popUntil((route) => route.isFirst);});
                 },
                 child: Text('Verified', style: TextStyle(color: Colors.white)),
                 // 텍스트 색상 변경
@@ -159,7 +136,9 @@ class EmailVerificationScreen extends StatelessWidget {
                     Text('Resend Email', style: TextStyle(color: Colors.white)),
                 // 텍스트 색상 변경
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white, backgroundColor: Palette.blackColor1, // 텍스트 색상 설정
+                  foregroundColor: Colors.white,
+                  backgroundColor: Palette.blackColor1,
+                  // 텍스트 색상 설정
                   shape: RoundedRectangleBorder(
                     side: BorderSide(color: Colors.white), // 경계선 색상 설정
                     borderRadius: BorderRadius.circular(5.0), // 모서리 둥글기 설정
@@ -176,7 +155,9 @@ class EmailVerificationScreen extends StatelessWidget {
                     Text('Change Email', style: TextStyle(color: Colors.white)),
                 // 텍스트 색상 변경
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white, backgroundColor: Palette.blackColor1, // 텍스트 색상 설정
+                  foregroundColor: Colors.white,
+                  backgroundColor: Palette.blackColor1,
+                  // 텍스트 색상 설정
                   shape: RoundedRectangleBorder(
                     side: BorderSide(color: Colors.white), // 경계선 색상 설정
                     borderRadius: BorderRadius.circular(5.0), // 모서리 둥글기 설정
