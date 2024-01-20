@@ -5,7 +5,7 @@ import 'create_server_page.dart';
 import 'package:provider/provider.dart';
 import 'server_list.dart';
 
-// StatefulWidget을 사용하여 상태를 가지는 서버 페이지 클래스를 생성합니다.
+// StatefulWidget을 사용하여 상태를 가지는 서버 페이지 클래스를 생성
 class ServerPage extends StatefulWidget {
   final String serverName;
   final List<String> invitedFriends;
@@ -58,7 +58,7 @@ class _ServerPageState extends State<ServerPage> {
             duration: Duration(milliseconds: 0),
             // 애니메이션 지속 시간을 설정
             width: isDrawerOpen ? 100 : 0,
-            // 드로어가 열렸을 때는 너비를 200으로, 닫혔을 때는 0으로 설정합니다.
+            // 드로어가 열렸을 때는 너비를 100으로, 닫혔을 때는 0으로 설정
             child: isDrawerOpen
                 ? ListView.builder(
                     itemCount:
