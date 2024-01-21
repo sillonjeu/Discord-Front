@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:discord_front/config/palette.dart';
+import 'package:discord_front/config/baseurl.dart';
 
 class EmailVerificationScreen extends StatelessWidget {
-  final String useremail;
+  final String email;
+  final String password;
+  final String username;
+  final String date;
 
-  const EmailVerificationScreen({Key? key, required this.useremail})
+  const EmailVerificationScreen({Key? key, required this.email,required this.username,required this.password,required this.date})
       : super(key: key);
 
 
@@ -49,18 +53,19 @@ class EmailVerificationScreen extends StatelessWidget {
 
 
   Future<void> _resendEmail(BuildContext context) async {
-    final String email = this.useremail;
     // TODO: 백엔드에 대한 HTTP 요청을 보내서 이메일 확인 여부를 확인
 
-    // 가상의 응답 생성
-    // 백엔드 구현이 완료되면 실제 HTTP 요청으로 대체
+    // // // TODO: try catch 감싸기
     // final response = await http.post(
-    //   Uri.parse('http://your-backend-url.com/login'), // 백엔드 URL 수정 필요
+    //   Uri.parse(Baseurl.baseurl+'/signUp'), // 백엔드 URL 수정 필요
     //   headers: <String, String>{
     //     'Content-Type': 'application/json',
     //   },
     //   body: jsonEncode(<String, String>{
-    //     'email': email,
+    //     'email': this.email,
+    //     'password': this.password,
+    //     'nickname': this.username,
+    //     'birth': this.date,
     //   }),
     // );
 
@@ -76,6 +81,7 @@ class EmailVerificationScreen extends StatelessWidget {
 
     if (response.statusCode == 200) {
       // 제대로 보냄
+
       _showDialog(context, 'An email has been resent to your email address.',
           'Resend Email');
     } else {
@@ -115,7 +121,7 @@ class EmailVerificationScreen extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   // 사용자가 이메일을 확인한 후 _verify 함수 호출
-                  _showDialog(context,"그럼 다시 로그인해","eㅁㄴmail 확인됬어?",() {
+                  _showDialog(context,"그럼 다시 로그인해","email 확인됬어?",() {
         Navigator.of(context).popUntil((route) => route.isFirst);});
                 },
                 child: Text('Verified', style: TextStyle(color: Colors.white)),

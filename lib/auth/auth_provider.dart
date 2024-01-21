@@ -48,6 +48,8 @@ class AuthProvider extends ChangeNotifier {
         // 갱신된 AccessToken 저장
         logout();
       }
+      print("returnMap is...");
+      print(returnMap);
       return returnMap;
 
     } else{
@@ -101,7 +103,13 @@ class AuthProvider extends ChangeNotifier {
         returnMap["iserror"]="false";
         returnMap["statusCode"]="200";
         // 토큰을 SharedPreferences에 저장
+        // print("new accesss Token is...");
+        // print(responseJson["accessToken"]); <-- 잘됨
+        // 새로운 토큰을 저장합니다.
         await TokenManager.saveTokens(responseJson["accessToken"], responseJson["refreshToken"]);
+        print("accessToken is refreshed!!");
+        // AuthProvider의 상태도 업데이트합니다.
+        setTokens(responseJson["accessToken"], responseJson["refreshToken"]);
         notifyListeners(); // 상태 변경 알림
         // 로그인 성공, 홈 화면으로 이동
       } else if (response.statusCode == 400) {

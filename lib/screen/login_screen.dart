@@ -40,38 +40,39 @@ class _LoginScreenState extends State<LoginScreen> {
       return; // 이메일이 유효하지 않으면 함수 종료
     }
 
-    // final response = await http.post(
-    //   Uri.parse(Baseurl.baseurl+'/login'), // 백엔드 URL 수정 필요
-    //   headers: <String, String>{
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: jsonEncode(<String, String>{
-    //     'email': email,
-    //     'password': password,
-    //   }),
-    // );
+    // TODO: try catch 감싸기
+    final response = await http.post(
+      Uri.parse(Baseurl.baseurl+'/login'), // 백엔드 URL 수정 필요
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(<String, String>{
+        'email': email,
+        'password': password,
+      }),
+    );
 
     // 가상의 응답 생성
     // 백엔드 구현이 완료되면 실제 HTTP 요청으로 대체
-    final response = http.Response(
-      jsonEncode({'result': true}), // true 또는 false로 변경하여 테스트
-      200, // HTTP 상태 코드
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    );
+    // final response = http.Response(
+    //   jsonEncode({'result': true}), // true 또는 false로 변경하여 테스트
+    //   200, // HTTP 상태 코드
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    // );
     // print("url?????");
     // print(Baseurl.baseurl+'/login');
     // 응답 처리
     if (response.statusCode == 200) {
       final responseJson = jsonDecode(response.body);
-      // accessToken=responseJson["accessToken"];
-      // refreshToken=responseJson["refreshToken"];
-      // // 토큰을 SharedPreferences에 저장
-      // await TokenManager.saveTokens(accessToken, refreshToken);
-      // // 로그인 성공, 홈 화면으로 이동
-      // // AuthProvider 인스턴스 업데이트
-      // Provider.of<AuthProvider>(context, listen: false).setTokens(accessToken, refreshToken);
+      accessToken=responseJson["accessToken"];
+      refreshToken=responseJson["refreshToken"];
+      // 토큰을 SharedPreferences에 저장
+      await TokenManager.saveTokens(accessToken, refreshToken);
+      // 로그인 성공, 홈 화면으로 이동
+      // AuthProvider 인스턴스 업데이트
+      Provider.of<AuthProvider>(context, listen: false).setTokens(accessToken, refreshToken);
 
 
       Navigator.pushReplacement(

@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:discord_front/screen/emailverify_screen.dart';
 import 'package:discord_front/config/palette.dart';
+import 'package:discord_front/config/baseurl.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -39,7 +40,7 @@ class _SignupScreenState extends State<SignupScreen> {
     final String username = _usernameController.text;
     final String password = _passwordController.text;
     final String email = _emailController.text;
-    final String date = '$_selectedYear-$_selectedMonth-$_selectedDay';
+    final String date = '$_selectedYear-$_selectedMonth-$_selectedDay'+'T12:22:46.161Z';
 
     //print("date is "+ date);
 
@@ -52,40 +53,38 @@ class _SignupScreenState extends State<SignupScreen> {
       return; // 이메일이 유효하지 않으면 함수 종료
     }
 
-    // final response = await http.post(
-    //   Uri.parse('http://your-backend-url.com/signup'), // 백엔드 URL 수정 필요
-    //   headers: <String, String>{
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: jsonEncode(<String, String>{
-    //     'username': username,
-    //     'password': password,
-    //     'email': email,
-    //   }),
-    // );
-
-    //백 형님들 api 구현전 테스트용 코드
-    final response = http.Response(
-      jsonEncode({'result':true}),
-      200,
-      headers:{
-        'Content-Type':'application/json',
+    // // TODO: try catch 감싸기
+    final response = await http.post(
+      Uri.parse(Baseurl.baseurl+'/signUp'), // 백엔드 URL 수정 필요
+      headers: <String, String>{
+        'Content-Type': 'application/json',
       },
+      body: jsonEncode(<String, String>{
+        'email': email,
+        'password': password,
+        'nickname': username,
+        'birth': date,
+      }),
     );
+
+    // //백 형님들 api 구현전 테스트용 코드
+    // final response = http.Response(
+    //   jsonEncode({'result':true}),
+    //   200,
+    //   headers:{
+    //     'Content-Type':'application/json',
+    //   },
+    // );
 
 
     if (response.statusCode == 200) {
-      final responseJson = jsonDecode(response.body);
-      if (responseJson['result']) {
-        // 회원가입 성공, 이메일 인증 화면으로 이동
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => EmailVerificationScreen(useremail: email)),
-        );
-      } else {
-        // 이미 등록된 사용자
-        _showDialog('User already exists');
-      }
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => EmailVerificationScreen(email: email,username:username,password:password,date:date)),
+      );
+    } else if(response.statusCode == 400){
+      // 이미 등록된 사용자
+      _showDialog('User already exists');
     } else {
       // 서버 에러 또는 기타 오류
       _showDialog('Error: ${response.statusCode}');
