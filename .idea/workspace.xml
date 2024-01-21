@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e32031ca-71d8-4ce0-9627-f8464648674d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/config/server.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/config/server.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screen/create_server_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/create_server_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screen/friends_list_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/friends_list_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screen/server_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/server_page.dart" afterDir="false" />
-    </list>
+    <list default="true" id="e32031ca-71d8-4ce0-9627-f8464648674d" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
