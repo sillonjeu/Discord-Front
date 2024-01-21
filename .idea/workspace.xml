@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="e338c6f2-8069-4da0-b99a-8fc05e2b2eb0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/auth/auth_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/auth/auth_provider.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screen/emailverify_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/emailverify_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screen/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/home_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screen/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/login_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screen/signup_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/signup_screen.dart" afterDir="false" />
     </list>
@@ -40,7 +42,7 @@
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "Lee",
     "io.flutter.reload.alreadyRun": "true",
-    "last_opened_file_path": "C:/Users/dawon/Videos/hansori",
+    "last_opened_file_path": "C:/Users/dawon/programming/git/TIL2024/yummy_chat_lecture1",
     "show.migrate.to.gradle.popup": "false"
   }
 }]]></component>
@@ -131,7 +133,23 @@
       <option name="project" value="LOCAL" />
       <updated>1705702151197</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="feat: emailverify_screen.dart and all screens dialogs">
+      <option name="closed" value="true" />
+      <created>1705705648573</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1705705648573</updated>
+    </task>
+    <task id="LOCAL-00010" summary="feat: jwt handling implemented, it would have a lot of errors">
+      <option name="closed" value="true" />
+      <created>1705769030338</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1705769030338</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -142,6 +160,8 @@
     <MESSAGE value="feat: signup_screen.dart done" />
     <MESSAGE value="fix: signup_screen.dart login_screen.dart form validation logic fixed" />
     <MESSAGE value="feat: signup_screen.dart login_screen.dart button change" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: signup_screen.dart login_screen.dart button change" />
+    <MESSAGE value="feat: emailverify_screen.dart and all screens dialogs" />
+    <MESSAGE value="feat: jwt handling implemented, it would have a lot of errors" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: jwt handling implemented, it would have a lot of errors" />
   </component>
 </project>
