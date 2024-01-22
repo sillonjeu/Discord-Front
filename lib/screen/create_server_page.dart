@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:discord_front/config/server.dart';
+import 'package:flutter/services.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:discord_front/config/server_list.dart';
 import 'package:discord_front/screen/friends_list_page.dart';
 
 class CreateServerPage extends StatefulWidget {
-  final String useremail; // 사용자 정보를 저장할 변수
+  final String useremail;
 
   const CreateServerPage({Key? key, required this.useremail}) : super(key: key);
 
@@ -32,26 +34,29 @@ class _CreateServerPageState extends State<CreateServerPage> {
 
   void _createServer() {
     if (_formKey.currentState!.validate()) {
-      File imageFile = _image ?? File('lib/assets/default_server_image.png');
+      File? imageFile = _image;
 
-      Server newServer = Server(
-        name: _serverNameController.text,
-        description: _serverDescriptionController.text, // 서버 설명 추가
-        image: imageFile,
-        invitedFriends: [],
-      );
+      // _image가 null이 아닐 경우에만 Server 객체를 생성합니다.
+      if (imageFile != null) {
+        Server newServer = Server(
+          name: _serverNameController.text,
+          description: _serverDescriptionController.text,
+          image: imageFile, // null이 아닌 File 객체
+          invitedFriends: [],
+        );
 
-      Provider.of<ServerList>(context, listen: false).addServer(newServer);
+        Provider.of<ServerList>(context, listen: false).addServer(newServer);
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => FriendsListPage(
-            server: newServer,
-            useremail: widget.useremail,
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => FriendsListPage(
+              server: newServer,
+              useremail: widget.useremail,
+            ),
           ),
-        ),
-      );
+        );
+      }
     }
   }
 
@@ -79,12 +84,7 @@ class _CreateServerPageState extends State<CreateServerPage> {
                 child: ClipOval(
                   child: _image != null
                       ? Image.file(_image!, width: 100, height: 100, fit: BoxFit.cover)
-                      : Container(
-                    width: 100,
-                    height: 100,
-                    color: Colors.blue,
-                    child: Icon(Icons.camera_alt, color: Colors.white),
-                  ),
+                      : Image.asset('lib/assets/default_server_image.png', width: 100, height: 100, fit: BoxFit.cover),
                 ),
               ),
             ),
