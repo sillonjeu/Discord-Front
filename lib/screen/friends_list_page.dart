@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:discord_front/config/server.dart';
-import 'package:discord_front/screen/server_page.dart';
+import 'package:discord_front/screen/server_page.dart' hide Server;
 import 'package:http_parser/http_parser.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -88,12 +88,7 @@ class _FriendsListPageState extends State<FriendsListPage> {
                context,
                MaterialPageRoute(
                  builder: (context) => ServerPage(
-                   serverName: widget.server.name,
-                   invitedFriends: _invitedFriends.toList(),
-                   serverImage: widget.server.image,
-                   serverList: dummyServers, // Replace with actual data
                    useremail: widget.useremail,
-                   description: widget.server.description,
                  ),
                ),
              );
@@ -101,34 +96,6 @@ class _FriendsListPageState extends State<FriendsListPage> {
       _showDialog('Error: ${response.statusCode}');
     }
   }
-
-  List<Server> dummyServers = [
-       Server(
-         name: 'Server 1',
-         image: File('lib/assets/default_server_image.png'),
-         invitedFriends: ["Q", "B", "C"],
-         description: "Server 1",
-       ),
-       Server(
-         name: 'Server 2',
-         image: File('lib/assets/default_server_image.png'),
-         invitedFriends: ["Q", "B", "C"],
-         description: "Server 2",
-       ),
-       Server(
-         name: 'Server 3',
-         image: File('lib/assets/default_server_image.png'),
-         invitedFriends: ["Q", "B", "C"],
-         description: "Server 3",
-       ),
-       Server(
-         name: 'Server 4',
-         image: File('lib/assets/default_server_image.png'),
-         invitedFriends: ["Q", "B", "C"],
-         description: "Server 4",
-       ),
-       // 추가 서버 정보를 여기에 포함시킵니다.
-     ];
 
   void _showDialog(String message) {
     showDialog(
@@ -211,7 +178,7 @@ class _FriendsListPageState extends State<FriendsListPage> {
   //   );
   // }
 
-  // Replace with dynamic link generation
+  // 이거도 실제 주소로 바꿔야함
   String _invitedLink = "https://invite.link/to/server";
 
   @override
