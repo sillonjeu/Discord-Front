@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'add_friend_screen.dart';
+
 void main() {
   runApp(MaterialApp(home: FriendsManageScreen()));
 }
@@ -86,6 +88,10 @@ class _FriendsManageScreenState extends State<FriendsManageScreen> {
           actions: [
             TextButton(
               onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AddFriendScreen()),
+                );
                 // 친구 추가하기 로직
               },
               child: Text('친구 추가하기', style: TextStyle(color: Colors.black)),

@@ -1,4 +1,5 @@
 import 'package:discord_front/screen/friends_manage_screen.dart'; // dawon 코딩용 import
+import 'package:discord_front/screen/notice_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:discord_front/screen/login_screen.dart';
