@@ -19,9 +19,9 @@ class CustomContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    // 화면 높이와 너비의 10%를 마진으로 설정합니다.
-    var verticalMargin = screenSize.height * 0.15;
-    var horizontalMargin = screenSize.width * 0.05;
+    // 마진 설정하는 부분
+    var verticalMargin = screenSize.height * 0.12;
+    var horizontalMargin = screenSize.width * 0.06;
 
     return Container(
       margin: EdgeInsets.symmetric(
@@ -160,7 +160,8 @@ class CustomWidgets {
   }
 }
 
-// 커스텀 날짜 고르기
+// 커스텀 날짜
+// 커스텀 날짜 선택 드롭다운
 class CustomDatePickerDropdown extends StatelessWidget {
   final List<String> yearsList;
   final String selectedYear;
@@ -182,20 +183,36 @@ class CustomDatePickerDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          child: _buildDropdown(yearsList, selectedYear, onYearChanged),
-        ),
-        SizedBox(width: 16.0),
-        Expanded(
-          child: _buildDropdown(_generateMonths(), selectedMonth, onMonthChanged),
-        ),
-        SizedBox(width: 16.0),
-        Expanded(
-          child: _buildDropdown(_generateDays(selectedYear, selectedMonth), selectedDay, onDayChanged),
+        Text('Date', style: TextStyle(color: Colors.white, fontSize: 16.0)),
+        SizedBox(height: 8.0),
+        Row(
+          children: [
+            Expanded(
+              child: _buildDropdownWithTheme(yearsList, selectedYear, onYearChanged, context),
+            ),
+            SizedBox(width: 16.0),
+            Expanded(
+              child: _buildDropdownWithTheme(_generateMonths(), selectedMonth, onMonthChanged, context),
+            ),
+            SizedBox(width: 16.0),
+            Expanded(
+              child: _buildDropdownWithTheme(_generateDays(selectedYear, selectedMonth), selectedDay, onDayChanged, context),
+            ),
+          ],
         ),
       ],
+    );
+  }
+
+  Widget _buildDropdownWithTheme(List<String> items, String selectedValue, ValueChanged<String?> onChanged, BuildContext context) {
+    return Theme(
+      data: Theme.of(context).copyWith(
+        canvasColor: Palette.blackColor4, // 드롭다운 메뉴의 배경색을 검은색으로 설정
+      ),
+      child: _buildDropdown(items, selectedValue, onChanged),
     );
   }
 
@@ -206,7 +223,7 @@ class CustomDatePickerDropdown extends StatelessWidget {
       items: items.map((String value) {
         return DropdownMenuItem<String>(
           value: value,
-          child: Text(value, style: TextStyle(color: Colors.white)),
+          child: Text(value, style: TextStyle(color: Colors.white)), // 드롭다운 항목의 텍스트 색상을 흰색으로 설정
         );
       }).toList(),
       decoration: InputDecoration(

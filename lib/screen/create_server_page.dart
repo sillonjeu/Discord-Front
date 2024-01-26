@@ -84,7 +84,7 @@ class _CreateServerPageState extends State<CreateServerPage> {
                 child: ClipOval(
                   child: _image != null
                       ? Image.file(_image!, width: 100, height: 100, fit: BoxFit.cover)
-                      : Image.asset('lib/assets/default_server_image.png', width: 100, height: 100, fit: BoxFit.cover),
+                      : Image.asset('asset/img/default_server_image.png', width: 100, height: 100, fit: BoxFit.cover),
                 ),
               ),
             ),

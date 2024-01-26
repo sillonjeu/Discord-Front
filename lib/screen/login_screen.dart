@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
       return;
     }
 
-    // 네트워크 요청을 AuthService를 통해 실행
+    // backend_auth 참조 -> login
     final result = await AuthService.login(email, password);
 
     if (result.containsKey('accessToken') && result.containsKey('refreshToken')) {
@@ -72,16 +72,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Flexible(
-                        flex: 1, // Welcome 텍스트에 할당할 공간의 비율
+                        flex: 2, // 이미지에 할당할 공간의 비율
                         child: Container(
                           width: double.infinity,
-                          child: Text(
-                            'Welcome!',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold),
+                          height: 100.0, // 이미지의 높이 설정
+                          child: Image.asset(
+                            'asset/img/default_server_image.png',
+                            fit: BoxFit.contain,
                           ),
                         ),
                       ),
+                      SizedBox(height: 25),
                       Flexible(
                         flex: 2, // Email 입력 필드에 할당할 공간의 비율
                         child: CustomTextFormField(
@@ -98,15 +99,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           obscureText: true,
                         ),
                       ),
+                      SizedBox(height: 30),
                       Flexible(
-                        flex: 2, // Login 버튼에 할당할 공간의 비율
+                        flex: 1, // Login 버튼에 할당할 공간의 비율
                         child: CustomElevatedButton(
                           label: 'Login',
                           onPressed: _login,
                         ),
                       ),
                       Flexible(
-                        flex: 2, // Signup 버튼에 할당할 공간의 비율
+                        flex: 1, // Signup 버튼에 할당할 공간의 비율
                         child: CustomElevatedButton(
                           label: 'Signup',
                           onPressed: _signup,
