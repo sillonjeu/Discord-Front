@@ -5,7 +5,7 @@ import 'package:discord_front/config/server.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-import '../auth/auth_provider.dart';
+import '../auth/token_provider.dart';
 import '../config/palette.dart';
 import 'create_server_page.dart';
 

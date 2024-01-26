@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:discord_front/screen/login_screen.dart';
 import 'package:discord_front/screen/create_server_page.dart'; // Ensure this import is correct
-import 'package:discord_front/auth/auth_provider.dart';
+import 'package:discord_front/auth/token_provider.dart';
 import 'package:discord_front/auth/token_manager.dart';
 import 'package:provider/provider.dart'; // Provider 패키지 추가
 

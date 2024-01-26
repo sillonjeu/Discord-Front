@@ -6,7 +6,7 @@ import 'package:discord_front/screen/server_page.dart' hide Server;
 import 'package:http_parser/http_parser.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
-import '../auth/auth_provider.dart';
+import '../auth/token_provider.dart';
 import '../config/palette.dart';
 
 class FriendsListPage extends StatefulWidget {
