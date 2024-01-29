@@ -1,6 +1,32 @@
 import 'dart:convert';
+import 'package:http_parser/http_parser.dart';
 import '../config/baseurl.dart';
 import 'package:http/http.dart' as http;
+import '../config/server.dart';
+
+// 내 서버 목록 조회할때 사용하는 클래스
+class Myserver {
+  final int id;
+  final String name;
+  final String description;
+  final String profileImage;
+
+  Myserver({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.profileImage,
+  });
+
+  factory Myserver.fromJson(Map<String, dynamic> json) {
+    return Myserver(
+      id: json['id'] as int,
+      name: json['name'] as String,
+      description: json['description'] as String,
+      profileImage: json['profileImage'] as String,
+    );
+  }
+}
 
 class AuthService {
   // 로그인 요청
@@ -63,6 +89,72 @@ class AuthService {
         'error': response.body,
         'statusCode': response.statusCode
       };
+    }
+  }
+
+  // 서버 만들기 요청
+  static Future<void> sendServerData(Server server, Set<String> invitedFriends, String accessToken) async {
+    var uri = Uri.parse(Baseurl.baseurl + '/server');
+
+    var request = http.MultipartRequest('POST', uri);
+
+    if (accessToken.isNotEmpty) {
+      request.headers.addAll({
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $accessToken',
+      });
+    }
+
+    if (server.image != null) {
+      request.files.add(
+        http.MultipartFile(
+          'serverImage',
+          server.image.readAsBytes().asStream(),
+          server.image.lengthSync(),
+          filename: server.image.path.split("/").last,
+        ),
+      );
+    }
+
+    request.files.add(http.MultipartFile.fromString(
+      'serverInfo',
+      json.encode({
+        'name': server.name,
+        'description': server.description,
+      }),
+      contentType: MediaType('application', 'json'),
+    ));
+
+    request.files.add(http.MultipartFile.fromString(
+      'friendList',
+      json.encode(invitedFriends.toList()),
+      contentType: MediaType('application', 'json'),
+    ));
+
+    var response = await request.send();
+
+    if (response.statusCode != 200) {
+      print('Error: ${response.statusCode}');
+    }
+  }
+
+  // 내 서버 목록 조회하기
+  static Future<List<Myserver>> fetchServerList(String accessToken) async {
+    final uri = Uri.parse(Baseurl.baseurl + '/list/server');
+    final response = await http.post(
+      uri,
+      headers: {
+        'Authorization': 'Bearer $accessToken',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      return (data['serverList'] as List)
+          .map((server) => Myserver.fromJson(server))
+          .toList();
+    } else {
+      throw Exception('Failed to load server list');
     }
   }
 }

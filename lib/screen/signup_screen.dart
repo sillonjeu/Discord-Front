@@ -31,14 +31,12 @@ class _SignupScreenState extends State<SignupScreen> {
       CustomWidgets.showSnackbar(context, 'Please fill out the form correctly');
       return;
     }
-
     final result = await AuthService.register(
       username: username,
       password: password,
       email: email,
       birthDate: birthDate,
     );
-
     if (result['statusCode'] == 200) {
       Navigator.push(
         context,

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:discord_front/config/server.dart';
-import 'package:flutter/services.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:discord_front/config/server_list.dart';
 import 'package:discord_front/screen/friends_list_page.dart';
+import '../auth/custom_widets.dart';
 
 class CreateServerPage extends StatefulWidget {
   final String useremail;
@@ -36,12 +35,11 @@ class _CreateServerPageState extends State<CreateServerPage> {
     if (_formKey.currentState!.validate()) {
       File? imageFile = _image;
 
-      // _image가 null이 아닐 경우에만 Server 객체를 생성합니다.
       if (imageFile != null) {
         Server newServer = Server(
           name: _serverNameController.text,
           description: _serverDescriptionController.text,
-          image: imageFile, // null이 아닌 File 객체
+          image: imageFile,
           invitedFriends: [],
         );
 
@@ -69,60 +67,77 @@ class _CreateServerPageState extends State<CreateServerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Create a Server'),
-      ),
-      body: Form(
-        key: _formKey,
-        child: ListView(
-          padding: EdgeInsets.all(16.0),
-          children: [
-            Center(
-              child: InkWell(
-                onTap: _pickImage,
-                child: ClipOval(
-                  child: _image != null
-                      ? Image.file(_image!, width: 100, height: 100, fit: BoxFit.cover)
-                      : Image.asset('asset/img/default_server_image.png', width: 100, height: 100, fit: BoxFit.cover),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Create a Server'),
+        ),
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("path_to_your_background_image"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Form(
+            key: _formKey,
+            child: ListView(
+              padding: EdgeInsets.all(16.0),
+              children: [
+                Center(
+                  child: InkWell(
+                    onTap: _pickImage,
+                    child: ClipOval(
+                      child: _image != null
+                          ? Image.file(_image!, width: 100, height: 100, fit: BoxFit.cover)
+                          : Image.asset('asset/img/default_server_image.png', width: 100, height: 100, fit: BoxFit.cover),
+                    ),
+                  ),
                 ),
-              ),
+                SizedBox(height: 20),
+                TextFormField(
+                  controller: _serverNameController,
+                  decoration: InputDecoration(
+                    labelText: 'Server Name',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a server name';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 20),
+                TextFormField(
+                  controller: _serverDescriptionController,
+                  decoration: InputDecoration(
+                    labelText: 'Server Description',
+                    border: OutlineInputBorder(),
+                  ),
+                  maxLines: 3,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a server description';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 20),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: 50.0),
+                    child: CustomElevatedButton(
+                      label: 'Create Server',
+                      onPressed: _createServer,
+                    ),
+                  ),
+                ),
+              ],
             ),
-            SizedBox(height: 20),
-            TextFormField(
-              controller: _serverNameController,
-              decoration: InputDecoration(
-                labelText: 'Server Name',
-                border: OutlineInputBorder(),
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a server name';
-                }
-                return null;
-              },
-            ),
-            SizedBox(height: 20),
-            TextFormField(
-              controller: _serverDescriptionController,
-              decoration: InputDecoration(
-                labelText: 'Server Description',
-                border: OutlineInputBorder(),
-              ),
-              maxLines: 3,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a server description';
-                }
-                return null;
-              },
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _createServer,
-              child: Text('Create Server'),
-            ),
-          ],
+          ),
         ),
       ),
     );

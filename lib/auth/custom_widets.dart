@@ -33,7 +33,7 @@ class CustomContainer extends StatelessWidget {
       child: SingleChildScrollView(
         child: ConstrainedBox(
           constraints: BoxConstraints(
-            // 최소 높이를 화면 높이에서 상하 마진을 뺀 만큼으로 설정합니다.
+            // 최소 높이를 화면 높이에서 상하 마진을 뺀 만큼으로 설정
             minHeight: screenSize.height - (verticalMargin * 2),
           ),
           child: IntrinsicHeight(
@@ -160,7 +160,6 @@ class CustomWidgets {
   }
 }
 
-// 커스텀 날짜
 // 커스텀 날짜 선택 드롭다운
 class CustomDatePickerDropdown extends StatelessWidget {
   final List<String> yearsList;
@@ -210,7 +209,7 @@ class CustomDatePickerDropdown extends StatelessWidget {
   Widget _buildDropdownWithTheme(List<String> items, String selectedValue, ValueChanged<String?> onChanged, BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(
-        canvasColor: Palette.blackColor4, // 드롭다운 메뉴의 배경색을 검은색으로 설정
+        canvasColor: Palette.blackColor4,
       ),
       child: _buildDropdown(items, selectedValue, onChanged),
     );
@@ -223,7 +222,7 @@ class CustomDatePickerDropdown extends StatelessWidget {
       items: items.map((String value) {
         return DropdownMenuItem<String>(
           value: value,
-          child: Text(value, style: TextStyle(color: Colors.white)), // 드롭다운 항목의 텍스트 색상을 흰색으로 설정
+          child: Text(value, style: TextStyle(color: Colors.white)),
         );
       }).toList(),
       decoration: InputDecoration(
