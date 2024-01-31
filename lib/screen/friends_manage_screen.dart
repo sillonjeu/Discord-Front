@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'add_friend_screen.dart';
-
+import 'package:discord_front/screen/add_friend_screen.dart';
+import 'package:discord_front/config/palette.dart';
 void main() {
   runApp(MaterialApp(home: FriendsManageScreen()));
 }
@@ -77,14 +77,16 @@ class _FriendsManageScreenState extends State<FriendsManageScreen> {
         FocusScope.of(context).requestFocus(new FocusNode());
       },
       child: Scaffold(
+        backgroundColor: Palette.blackColor3,
         appBar: AppBar(
+          backgroundColor: Palette.blackColor3,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: Icon(Icons.arrow_back, color: Colors.white,),
             onPressed: () {
               Navigator.pop(context);
             },
           ),
-          title: Text('친구'),
+          title: Text('친구', style: TextStyle(color: Colors.white)),
           actions: [
             TextButton(
               onPressed: () {
@@ -94,7 +96,7 @@ class _FriendsManageScreenState extends State<FriendsManageScreen> {
                 );
                 // 친구 추가하기 로직
               },
-              child: Text('친구 추가하기', style: TextStyle(color: Colors.black)),
+              child: Text('친구 추가하기', style: TextStyle(color: Palette.btnColor)),
             ),
           ],
         ),
@@ -104,9 +106,15 @@ class _FriendsManageScreenState extends State<FriendsManageScreen> {
               padding: const EdgeInsets.all(8.0),
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: '친구 검색',
+                  hintText: '검색하기',
+                  hintStyle: TextStyle(color: Colors.grey), // 힌트 텍스트 색상 설정
                   prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20), // 모서리 둥글기 설정
+                  ),
+                  fillColor: Palette.blackColor4, // 텍스트 필드 배경색 설정
+                  filled: true,
+                  contentPadding: EdgeInsets.symmetric(vertical: 10), // 내부 패딩 조정
                 ),
                 onChanged: (value) {
                   setState(() {
@@ -115,51 +123,8 @@ class _FriendsManageScreenState extends State<FriendsManageScreen> {
                 },
               ),
             ),
-            InkWell(
-              onTap: () {
-                // 친구 요청 페이지 이동 로직
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-                margin: EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.2),
-                      spreadRadius: 1,
-                      blurRadius: 3,
-                      offset: Offset(0, 3), // changes position of shadow
-                    ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(Icons.people), // 종이비행기 아이콘
-                        SizedBox(width: 10,),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text('친구 요청', style: TextStyle(fontWeight: FontWeight.bold)),
-                            Text(
-                              '0개 받음 - 1개 보냄',
-                              style: TextStyle(fontSize: 12, color: Colors.blue),
-                            ),
-                          ],
-                        ),
 
-                      ],
-                    ),
-                    Icon(Icons.chevron_right), // 꺽새 아이콘
-                  ],
-                ),
-              ),
-            ),
-
+            FriendRequestTile(),
             Expanded(
               child: ListView.builder(
                 itemCount: friendGroups.keys.length,
@@ -176,7 +141,7 @@ class _FriendsManageScreenState extends State<FriendsManageScreen> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(initial, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                        child: Text(initial, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color:Colors.white,)),
                       ),
                       ...friends
                     ],
@@ -199,26 +164,73 @@ class FriendTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: CircleAvatar(child: Text(initial)),
-      title: Text(name),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          IconButton(
-            icon: Icon(Icons.phone),
-            onPressed: () {
-              // 통화 로직
-            },
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+      decoration: BoxDecoration(
+        color: Palette.blackColor2, // 타일 배경색
+        borderRadius: BorderRadius.circular(10), // 모서리 둥글기
+      ),
+      child: ListTile(
+        leading: CircleAvatar(
+          // 임시 이미지
+          backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+        ),
+        title: Text(name, style: TextStyle(color: Colors.white)), // 텍스트 색상 변경
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            IconButton(
+              icon: Icon(Icons.phone, color: Colors.white),
+              onPressed: () {
+                // 통화 로직
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.chat_bubble_outline, color: Colors.white),
+              onPressed: () {
+                // 메시지 보내기 로직
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class FriendRequestTile extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+      margin: EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+        color: Palette.blackColor2, // 타일 배경색
+        borderRadius: BorderRadius.circular(10), // 모서리 둥글기
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.people, color: Colors.white), // 아이콘 색상 변경
+              SizedBox(width: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text('친구 요청', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                  Text(
+                    '0개 받음 - 1개 보냄',
+                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                  ),
+                ],
+              ),
+            ],
           ),
-          IconButton(
-            icon: Icon(Icons.chat_bubble_outline),
-            onPressed: () {
-              // 메시지 보내기 로직
-            },
-          ),
+          Icon(Icons.chevron_right, color: Colors.white), // 아이콘 색상 변경
         ],
       ),
     );
   }
 }
+
