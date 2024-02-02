@@ -1,7 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import 'package:discord_front/screen/add_friend_screen.dart';
 import 'package:discord_front/config/palette.dart';
+import 'package:provider/provider.dart';
+
+import '../auth/token_provider.dart';
+import '../config/baseurl.dart';
+import 'package:http/http.dart' as http;
 void main() {
   runApp(MaterialApp(home: FriendsManageScreen()));
 }
@@ -12,42 +19,21 @@ class FriendsManageScreen extends StatefulWidget {
 }
 
 class _FriendsManageScreenState extends State<FriendsManageScreen> {
-  String searchText = '';
-  List<FriendTile> originalFriendsList = [
-    // 백엔드에서 받아온 친구 목록
-    FriendTile(name: 'Amanda', initial: 'A'),
-    FriendTile(name: 'Daniel', initial: 'D'),
-    FriendTile(name: 'Chris', initial: 'C'),
-    FriendTile(name: 'Catherine', initial: 'C'),
-    FriendTile(name: 'Brianna', initial: 'B'),
-    FriendTile(name: 'Andrew', initial: 'A'),
-    FriendTile(name: 'Doris', initial: 'D'),
-    FriendTile(name: 'David', initial: 'D'),
-    FriendTile(name: 'Bella', initial: 'B'),
-    FriendTile(name: 'Clara', initial: 'C'),
-    FriendTile(name: 'Brian', initial: 'B'),
-    FriendTile(name: 'Benjamin', initial: 'B'),
-    FriendTile(name: 'Cody', initial: 'C'),
-    FriendTile(name: 'Alice', initial: 'A'),
-    FriendTile(name: 'Daisy', initial: 'D'),
-    FriendTile(name: 'Anna', initial: 'A'),
-    FriendTile(name: 'Diana', initial: 'D'),
-    FriendTile(name: 'Caleb', initial: 'C'),
-    FriendTile(name: 'Bob', initial: 'B'),
-    FriendTile(name: 'Anthony', initial: 'A'),
 
-  ];
+
+
+  String searchText = '';
   List<FriendTile> sortedFriendsList = [];
+  bool isLoading = true;
+
 
   @override
   void initState() {
     super.initState();
     // 백엔드에서 친구 목록을 받아오는 로직
-    // 예를 들어, fetchFriendsFromBackend();
-
     // 친구 목록 정렬
-    sortedFriendsList = sortFriendsList(originalFriendsList);
-    print("friends list sorted");
+    fetchFriends();
+
   }
 
   List<FriendTile> sortFriendsList(List<FriendTile> friends) {
@@ -68,9 +54,49 @@ class _FriendsManageScreenState extends State<FriendsManageScreen> {
     return map;
   }
 
+  Future<void> fetchFriends() async {
+    setState(() {
+      isLoading = true;
+    });
+    final accessToken = Provider.of<AuthProvider>(context, listen: false).accessToken;
+    print("accessToken is ... "+accessToken!);
+    try {
+      final response = await http.get(
+        Uri.parse(Baseurl.baseurl + '/list/friend?page=0&size=20'), //TODO: 이거 친구 젠부 가져와야 함.
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $accessToken',
+        },
+      );
+      if (response.statusCode == 200) {
+        final responseJson = jsonDecode(response.body);
+        List<FriendTile> fetchedFriendsList = [];
+
+        for (var friendData in responseJson["content"]) {
+          String nickname = friendData["nickname"];
+          String initial = nickname.isNotEmpty ? nickname[0].toUpperCase() : '?';
+
+          fetchedFriendsList.add(FriendTile(name: nickname, initial: initial));
+        }
+        setState(() {
+          sortedFriendsList = sortFriendsList(fetchedFriendsList);
+          print("friends list sorted");
+        });
+      } else {
+        print(response.statusCode);
+      }
+    } catch (e) {
+      print('Error get friends list: $e');
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Map<String, List<FriendTile>> friendGroups = groupedFriends();
+
 
     return GestureDetector(
       onTap: (){
@@ -100,7 +126,9 @@ class _FriendsManageScreenState extends State<FriendsManageScreen> {
             ),
           ],
         ),
-        body: Column(
+        body: isLoading
+          ? Center(child: CircularProgressIndicator(),)
+          : Column(
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
