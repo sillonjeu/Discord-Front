@@ -1,17 +1,14 @@
-import 'dart:convert';
-import 'dart:io';
+import 'package:discord_front/auth/custom_widets.dart';
 import 'package:flutter/material.dart';
 import 'package:discord_front/config/server.dart';
 import 'package:discord_front/screen/server_page.dart' hide Server;
-import 'package:http_parser/http_parser.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
-import '../auth/auth_provider.dart';
-import '../config/palette.dart';
+import '../auth/backend_auth.dart';
+import '../auth/token_provider.dart';
 
 class FriendsListPage extends StatefulWidget {
   final Server server;
-  final String useremail; // 사용자 정보를 저장할 변수
+  final String useremail;
 
   FriendsListPage({Key? key, required this.server, required this.useremail})
       : super(key: key);
@@ -20,6 +17,7 @@ class FriendsListPage extends StatefulWidget {
 }
 
 class _FriendsListPageState extends State<FriendsListPage> {
+// Todo: 이거도 실제 친구 목록으로 바꿔야됨 -> 다원이꺼랑 연동
   final List<String> friends = [
     'Friend1@naver.com',
     'Friend2@naver.com',
@@ -39,146 +37,27 @@ class _FriendsListPageState extends State<FriendsListPage> {
     });
   }
 
-  // 백엔드 서버로 데이터를 보내는 함수. 실제 연동 시 주석을 제거하기
+  // backend_auth 확인하기
   Future<void> _sendServerData() async {
-    var uri = Uri.parse('http://ec2-43-202-89-80.ap-northeast-2.compute.amazonaws.com:8080/server');
     final accessToken = Provider.of<AuthProvider>(context, listen: false).accessToken;
-    print(accessToken);
-
-    var request = http.MultipartRequest('POST', uri);
-
     if (accessToken != null) {
-      request.headers.addAll({
-        'Accept': 'application/json',
-        'Authorization': 'Bearer $accessToken',
-      });
-    }
-
-    if (widget.server.image != null) {
-      request.files.add(
-        http.MultipartFile(
-          'serverImage',
-          widget.server.image.readAsBytes().asStream(),
-          widget.server.image.lengthSync(),
-          filename: widget.server.image.path.split("/").last,
+      await AuthService.sendServerData(widget.server, _invitedFriends, accessToken);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ServerPage(useremail: widget.useremail),
         ),
       );
-    }
-
-    // serverInfo와 friendList를 JSON 형식의 파일로 추가
-    request.files.add(http.MultipartFile.fromString(
-      'serverInfo',
-      json.encode({
-        'name': widget.server.name,
-        'description': widget.server.description,
-      }),
-      contentType: MediaType('application', 'json'),
-    ));
-
-    request.files.add(http.MultipartFile.fromString(
-      'friendList',
-      json.encode(_invitedFriends.toList()),
-      contentType: MediaType('application', 'json'),
-    ));
-
-    var response = await request.send();
-
-    if (response.statusCode == 200) {
-      Navigator.push(
-               context,
-               MaterialPageRoute(
-                 builder: (context) => ServerPage(
-                   useremail: widget.useremail,
-                 ),
-               ),
-             );
     } else {
-      _showDialog('Error: ${response.statusCode}');
+      CustomWidgets.showCustomDialog(
+          context,
+          'Error',
+          'Access token is not available'
+      );
     }
   }
 
-  void _showDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Palette.blackColor1, // 다이얼로그 배경색 설정
-          title: Text(
-            'Login Error',
-            style: TextStyle(color: Colors.white), // 다이얼로그 제목 텍스트 색상 설정
-          ),
-          content: Text(
-            message,
-            style: TextStyle(color: Colors.white), // 다이얼로그 내용 텍스트 색상 설정
-          ),
-          actions: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                'Close',
-                style: TextStyle(color: Colors.black), // 텍스트 색상 설정
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white, // 버튼 배경색
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(3.0), // 모서리 둥글기 설정
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  // void _skipOrComplete() {
-  //   // Replace with actual server list logic
-  //   List<Server> dummyServers = [
-  //     Server(
-  //       name: 'Server 1',
-  //       image: File('lib/assets/default_server_image.png'),
-  //       invitedFriends: ["Q", "B", "C"],
-  //       description: "Server 1",
-  //     ),
-  //     Server(
-  //       name: 'Server 2',
-  //       image: File('lib/assets/default_server_image.png'),
-  //       invitedFriends: ["Q", "B", "C"],
-  //       description: "Server 2",
-  //     ),
-  //     Server(
-  //       name: 'Server 3',
-  //       image: File('lib/assets/default_server_image.png'),
-  //       invitedFriends: ["Q", "B", "C"],
-  //       description: "Server 3",
-  //     ),
-  //     Server(
-  //       name: 'Server 4',
-  //       image: File('lib/assets/default_server_image.png'),
-  //       invitedFriends: ["Q", "B", "C"],
-  //       description: "Server 4",
-  //     ),
-  //     // 추가 서버 정보를 여기에 포함시킵니다.
-  //   ];
-  //
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => ServerPage(
-  //         serverName: widget.server.name,
-  //         invitedFriends: _invitedFriends.toList(),
-  //         serverImage: widget.server.image,
-  //         serverList: dummyServers, // Replace with actual data
-  //         useremail: widget.useremail,
-  //         description: widget.server.description,
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // 이거도 실제 주소로 바꿔야함
+  // Todo: 이거도 실제 주소로 바꿔야함
   String _invitedLink = "https://invite.link/to/server";
 
   @override
@@ -226,10 +105,10 @@ class _FriendsListPageState extends State<FriendsListPage> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: EdgeInsets.only(bottom: 50.0),
-              child: ElevatedButton(
+              padding: EdgeInsets.only(bottom: 50.0, right: 16.0, left: 16.0),
+              child: CustomElevatedButton(
+                label: (_invitedFriends.isNotEmpty ? 'Complete' : 'Skip'),
                 onPressed: _sendServerData,
-                child: Text(_invitedFriends.isNotEmpty ? 'Complete' : 'Skip'),
               ),
             ),
           ),
