@@ -4,7 +4,7 @@ import 'package:discord_front/screen/login_screen.dart';
 import 'package:provider/provider.dart';
 import 'config/server_list.dart';
 //import 'package:discord_front/screen/home_screen.dart';
-import 'package:discord_front/auth/auth_provider.dart';
+import 'package:discord_front/auth/token_provider.dart';
 
 void main() {
   runApp(
@@ -17,7 +17,6 @@ void main() {
     ),
   );
 }
-
 
 class MyApp extends StatelessWidget {
   @override
