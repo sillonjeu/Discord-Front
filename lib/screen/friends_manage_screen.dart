@@ -9,6 +9,9 @@ import 'package:provider/provider.dart';
 import '../auth/token_provider.dart';
 import '../config/baseurl.dart';
 import 'package:http/http.dart' as http;
+
+import 'friend_request_screen.dart';
+
 void main() {
   runApp(MaterialApp(home: FriendsManageScreen()));
 }
@@ -19,19 +22,25 @@ class FriendsManageScreen extends StatefulWidget {
 }
 
 class _FriendsManageScreenState extends State<FriendsManageScreen> {
-
-
-
   String searchText = '';
   List<FriendTile> sortedFriendsList = [];
   bool isLoading = true;
+  int sentcount = 10;
+  int receivedcount = 10;
 
+  Future<void> _handleRefresh() async {
+    await fetchRequests();
+    await fetchFriends();
+    // 새로고침 이후 UI를 업데이트하기 위해 setState를 사용할 수 있습니다.
+    setState(() {});
+  }
 
   @override
   void initState() {
     super.initState();
     // 백엔드에서 친구 목록을 받아오는 로직
     // 친구 목록 정렬
+    fetchRequests();
     fetchFriends();
 
   }
@@ -54,15 +63,54 @@ class _FriendsManageScreenState extends State<FriendsManageScreen> {
     return map;
   }
 
+  Future<void> fetchRequests() async {
+    //fetchrequest는 항상 fetchfriends와 함께 실행되기 때문에 딱히 setstate를 쓰지 않았습니다. 근데 만약
+    //비지니스 로직이 바뀌면 setstate를 추가해야 합니다!!!!
+    final accessToken =
+        Provider.of<AuthProvider>(context, listen: false).accessToken;
+    try {
+      final response1 = await http.get(
+        Uri.parse(Baseurl.baseurl + '/friend/request/received'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $accessToken',
+        },
+      );
+      final response2 = await http.get(
+        Uri.parse(Baseurl.baseurl + '/friend/request/send'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $accessToken',
+        },
+      );
+      if (response1.statusCode == 200 && response2.statusCode == 200) {
+        final responseJson1 = jsonDecode(response1.body);
+        final responseJson2 = jsonDecode(response2.body);
+
+        setState(() {
+          sentcount = responseJson2["numberOfElements"];
+          receivedcount = responseJson1["numberOfElements"];
+        });
+      } else {
+        print(response1.statusCode);
+        print(response2.statusCode);
+      }
+    } catch (e) {
+      print('Error get friends list: $e');
+    }
+  }
+
   Future<void> fetchFriends() async {
     setState(() {
       isLoading = true;
     });
-    final accessToken = Provider.of<AuthProvider>(context, listen: false).accessToken;
-    print("accessToken is ... "+accessToken!);
+    final accessToken =
+        Provider.of<AuthProvider>(context, listen: false).accessToken;
+    print("accessToken is ... " + accessToken!);
     try {
       final response = await http.get(
-        Uri.parse(Baseurl.baseurl + '/list/friend?page=0&size=20'), //TODO: 이거 친구 젠부 가져와야 함.
+        Uri.parse(Baseurl.baseurl + '/list/friend?page=0&size=20'),
+        //TODO: 이거 친구 젠부 가져와야 함.
         headers: <String, String>{
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $accessToken',
@@ -74,7 +122,8 @@ class _FriendsManageScreenState extends State<FriendsManageScreen> {
 
         for (var friendData in responseJson["content"]) {
           String nickname = friendData["nickname"];
-          String initial = nickname.isNotEmpty ? nickname[0].toUpperCase() : '?';
+          String initial =
+          nickname.isNotEmpty ? nickname[0].toUpperCase() : '?';
 
           fetchedFriendsList.add(FriendTile(name: nickname, initial: initial));
         }
@@ -97,9 +146,8 @@ class _FriendsManageScreenState extends State<FriendsManageScreen> {
   Widget build(BuildContext context) {
     Map<String, List<FriendTile>> friendGroups = groupedFriends();
 
-
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         FocusScope.of(context).requestFocus(new FocusNode());
       },
       child: Scaffold(
@@ -107,7 +155,10 @@ class _FriendsManageScreenState extends State<FriendsManageScreen> {
         appBar: AppBar(
           backgroundColor: Palette.blackColor3,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white,),
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -116,68 +167,92 @@ class _FriendsManageScreenState extends State<FriendsManageScreen> {
           actions: [
             TextButton(
               onPressed: () {
+                // 친구 추가하기 화면으로 이동
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => AddFriendScreen()),
                 );
-                // 친구 추가하기 로직
               },
               child: Text('친구 추가하기', style: TextStyle(color: Palette.btnColor)),
             ),
           ],
         ),
-        body: isLoading
-          ? Center(child: CircularProgressIndicator(),)
-          : Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: '검색하기',
-                  hintStyle: TextStyle(color: Colors.grey), // 힌트 텍스트 색상 설정
-                  prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20), // 모서리 둥글기 설정
-                  ),
-                  fillColor: Palette.blackColor4, // 텍스트 필드 배경색 설정
-                  filled: true,
-                  contentPadding: EdgeInsets.symmetric(vertical: 10), // 내부 패딩 조정
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    searchText = value;
-                  });
-                },
-              ),
-            ),
-
-            FriendRequestTile(),
-            Expanded(
-              child: ListView.builder(
-                itemCount: friendGroups.keys.length,
-                itemBuilder: (context, index) {
-                  String initial = friendGroups.keys.elementAt(index);
-                  List<FriendTile> friends = friendGroups[initial]!;
-
-                  if (friends.isEmpty) {
-                    return SizedBox.shrink();
-                  }
-
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(initial, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color:Colors.white,)),
+        body: RefreshIndicator(
+          onRefresh: _handleRefresh,
+          child: isLoading
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: '검색하기',
+                          hintStyle: TextStyle(color: Colors.grey),
+                          // 힌트 텍스트 색상 설정
+                          prefixIcon: Icon(Icons.search),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20), // 모서리 둥글기 설정
+                          ),
+                          fillColor: Palette.blackColor4,
+                          // 텍스트 필드 배경색 설정
+                          filled: true,
+                          contentPadding:
+                              EdgeInsets.symmetric(vertical: 10), // 내부 패딩 조정
+                        ),
+                        style: TextStyle(color: Colors.white), // 입력 텍스트 색상 설정
+                        onChanged: (value) {
+                          setState(() {
+                            searchText = value;
+                          });
+                        },
                       ),
-                      ...friends
-                    ],
-                  );
-                },
-              ),
-            ),
-          ],
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => FriendRequestScreen()),
+                        );
+                      },
+                      child: FriendRequestTile(
+                        receivedCnt: receivedcount,
+                        sentCnt:  sentcount,
+                      ),
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: friendGroups.keys.length,
+                        itemBuilder: (context, index) {
+                          String initial = friendGroups.keys.elementAt(index);
+                          List<FriendTile> friends = friendGroups[initial]!;
+
+                          if (friends.isEmpty) {
+                            return SizedBox.shrink();
+                          }
+
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(initial,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    )),
+                              ),
+                              ...friends
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
         ),
       ),
     );
@@ -227,6 +302,16 @@ class FriendTile extends StatelessWidget {
 }
 
 class FriendRequestTile extends StatelessWidget {
+  final int receivedCnt;
+  final int sentCnt;
+
+  // 생성자 추가
+  const FriendRequestTile({
+    Key? key,
+    required this.receivedCnt,
+    required this.sentCnt,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -246,9 +331,11 @@ class FriendRequestTile extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('친구 요청', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                  Text('친구 요청',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.white)),
                   Text(
-                    '0개 받음 - 1개 보냄',
+                    '$receivedCnt개 받음 - $sentCnt개 보냄',
                     style: TextStyle(fontSize: 12, color: Colors.grey),
                   ),
                 ],
