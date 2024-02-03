@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e338c6f2-8069-4da0-b99a-8fc05e2b2eb0" name="Changes" comment="feat: friend_manage_screen friend list">
-      <change afterPath="$PROJECT_DIR$/lib/screen/friend_request_screen.dart" afterDir="false" />
+    <list default="true" id="e338c6f2-8069-4da0-b99a-8fc05e2b2eb0" name="Changes" comment="feat: friend request">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screen/add_friend_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/add_friend_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screen/friends_manage_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/friends_manage_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screen/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/home_screen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -156,7 +154,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706862074292</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="feat: friend request backend linking but refreshing token is not implemented">
+      <option name="closed" value="true" />
+      <created>1706943281808</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1706943281808</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -170,6 +176,7 @@
     <MESSAGE value="feat: emailverify_screen.dart and all screens dialogs" />
     <MESSAGE value="feat: jwt handling implemented, it would have a lot of errors" />
     <MESSAGE value="feat: friend_manage_screen friend list backend linking but it token refreshing is not implemented" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: friend_manage_screen friend list backend linking but it token refreshing is not implemented" />
+    <MESSAGE value="feat: friend request backend linking but refreshing token is not implemented" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: friend request backend linking but refreshing token is not implemented" />
   </component>
 </project>

@@ -81,7 +81,7 @@ class _AddFriendScreenState extends State<AddFriendScreen> {
               duration: Duration(seconds: 3), // 스낵바가 보여지는 시간
             ),
           );
-        } else if(responseJson == "ACEEPT"){
+        } else if(responseJson == "ACCEPTED"){
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('상대도 친구요청을 보냈어서 친구가 되었습니다.'),

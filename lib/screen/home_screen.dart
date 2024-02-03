@@ -3,7 +3,9 @@ import 'package:discord_front/screen/login_screen.dart';
 import 'package:discord_front/screen/create_server_page.dart'; // Ensure this import is correct
 import 'package:discord_front/auth/token_provider.dart';
 import 'package:discord_front/auth/token_manager.dart';
-import 'package:provider/provider.dart'; // Provider 패키지 추가
+import 'package:provider/provider.dart';
+
+import 'friends_manage_screen.dart'; // Provider 패키지 추가
 
 class HomeScreen extends StatefulWidget {
   final String useremail;
@@ -66,6 +68,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 });
               }, // 버튼 클릭 시 refreshPage 호출
               child: Text('Refresh Page'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // 서버 생성 페이지로 이동
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => FriendsManageScreen())
+                ); // Ensure this route is defined
+              },
+              child: Text('friendsmanagescreen'),
             ),
           ],
         ),
