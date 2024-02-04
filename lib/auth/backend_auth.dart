@@ -157,4 +157,51 @@ class AuthService {
       throw Exception('Failed to load server list');
     }
   }
+
+  // 친구 목록 조회 요청
+  static Future<List<Friend>> fetchFriendsData(String accessToken) async {
+    final uri = Uri.parse(Baseurl.baseurl + '/list/friend?page=0&size=10');
+    final response = await http.get(
+      uri,
+      headers: {
+        'Authorization': 'Bearer $accessToken',
+      },
+    );
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      List<Friend> friends = (data['content'] as List)
+          .map((friend) => Friend.fromJson(friend))
+          .toList();
+      return friends;
+    } else {
+      throw Exception('Failed to load friends list');
+    }
+  }
+}
+
+// 친구 데이터를 저장할 모델 클래스
+class Friend {
+  final String email;
+  final String nickname;
+  final String? profileImageId;
+  final String? profileMsg;
+  final String? profileImage;
+
+  Friend({
+    required this.email,
+    required this.nickname,
+    this.profileImageId,
+    this.profileMsg,
+    this.profileImage,
+  });
+
+  factory Friend.fromJson(Map<String, dynamic> json) {
+    return Friend(
+      email: json['email'],
+      nickname: json['nickname'],
+      profileImageId: json['profileImageId'],
+      profileMsg: json['profileMsg'],
+      profileImage: json['profileImage'],
+    );
+  }
 }

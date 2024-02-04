@@ -6,8 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="e338c6f2-8069-4da0-b99a-8fc05e2b2eb0" name="Changes" comment="feat: friend request">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screen/add_friend_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/add_friend_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screen/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/home_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/auth/backend_auth.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/auth/backend_auth.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screen/create_server_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/create_server_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screen/friends_list_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/friends_invited_server.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screen/friends_manage_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/friends_manage_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screen/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/login_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screen/server_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/server_page.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

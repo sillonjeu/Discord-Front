@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:discord_front/config/server_list.dart';
-import 'package:discord_front/screen/friends_list_page.dart';
+import 'package:discord_front/screen/friends_invited_server.dart';
 import '../auth/custom_widets.dart';
 
 class CreateServerPage extends StatefulWidget {
@@ -74,12 +74,6 @@ class _CreateServerPageState extends State<CreateServerPage> {
           title: Text('Create a Server'),
         ),
         body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("path_to_your_background_image"),
-              fit: BoxFit.cover,
-            ),
-          ),
           child: Form(
             key: _formKey,
             child: ListView(

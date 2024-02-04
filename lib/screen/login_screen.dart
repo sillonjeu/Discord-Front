@@ -1,6 +1,6 @@
+import 'package:discord_front/screen/server_page.dart';
 import 'package:flutter/material.dart';
 import 'package:discord_front/screen/signup_screen.dart';
-import 'package:discord_front/screen/home_screen.dart';
 import 'package:discord_front/auth/token_manager.dart';
 import 'package:discord_front/auth/token_provider.dart';
 import 'package:provider/provider.dart';
@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
       Provider.of<AuthProvider>(context, listen: false).setTokens(result['accessToken'], result['refreshToken']);
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen(useremail: email)),
+        MaterialPageRoute(builder: (context) => ServerPage(useremail: email)),
       );
     } else {
       CustomWidgets.showCustomDialog(context, 'Login Error', 'Error: ${result['error']}');

@@ -1,15 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-
 import 'package:discord_front/screen/add_friend_screen.dart';
 import 'package:discord_front/config/palette.dart';
 import 'package:provider/provider.dart';
-
 import '../auth/token_provider.dart';
 import '../config/baseurl.dart';
 import 'package:http/http.dart' as http;
-
 import 'friend_request_screen.dart';
 
 void main() {
@@ -42,7 +38,6 @@ class _FriendsManageScreenState extends State<FriendsManageScreen> {
     // 친구 목록 정렬
     fetchRequests();
     fetchFriends();
-
   }
 
   List<FriendTile> sortFriendsList(List<FriendTile> friends) {

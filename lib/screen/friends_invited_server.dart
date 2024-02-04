@@ -1,43 +1,51 @@
-import 'package:discord_front/auth/custom_widets.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:discord_front/auth/custom_widets.dart';
+import 'package:discord_front/auth/backend_auth.dart';
+import 'package:discord_front/auth/token_provider.dart';
 import 'package:discord_front/config/server.dart';
 import 'package:discord_front/screen/server_page.dart' hide Server;
-import 'package:provider/provider.dart';
-import '../auth/backend_auth.dart';
-import '../auth/token_provider.dart';
 
 class FriendsListPage extends StatefulWidget {
   final Server server;
   final String useremail;
 
-  FriendsListPage({Key? key, required this.server, required this.useremail})
-      : super(key: key);
+  FriendsListPage({Key? key, required this.server, required this.useremail}) : super(key: key);
+
   @override
   _FriendsListPageState createState() => _FriendsListPageState();
 }
 
 class _FriendsListPageState extends State<FriendsListPage> {
-// Todo: 이거도 실제 친구 목록으로 바꿔야됨 -> 다원이꺼랑 연동
-  final List<String> friends = [
-    'Friend1@naver.com',
-    'Friend2@naver.com',
-    'Friend3@naver.com',
-    'Friend4@naver.com',
-  ];
+  List<Friend> friends = []; // 친구 목록 불러오기
+  Set<String> _invitedFriends = {}; // 초대할 친구들
 
-  Set<String> _invitedFriends = {};
+  @override
+  void initState() {
+    super.initState();
+    _fetchFriendsData();
+  }
 
-  void _inviteFriend(String friendName) {
+  void _inviteFriend(String friendEmail) {
     setState(() {
-      if (_invitedFriends.contains(friendName)) {
-        _invitedFriends.remove(friendName);
+      if (_invitedFriends.contains(friendEmail)) {
+        _invitedFriends.remove(friendEmail);
       } else {
-        _invitedFriends.add(friendName);
+        _invitedFriends.add(friendEmail);
       }
     });
   }
 
-  // backend_auth 확인하기
+  // 친구 목록 불러오기
+  Future<void> _fetchFriendsData() async {
+    final accessToken = Provider.of<AuthProvider>(context, listen: false).accessToken;
+    if (accessToken != null) {
+      friends = await AuthService.fetchFriendsData(accessToken);
+      setState(() {});
+    }
+  }
+
+  // 만들 서버 보내기
   Future<void> _sendServerData() async {
     final accessToken = Provider.of<AuthProvider>(context, listen: false).accessToken;
     if (accessToken != null) {
@@ -49,15 +57,11 @@ class _FriendsListPageState extends State<FriendsListPage> {
         ),
       );
     } else {
-      CustomWidgets.showCustomDialog(
-          context,
-          'Error',
-          'Access token is not available'
-      );
+      CustomWidgets.showCustomDialog(context, 'Error', 'Access token is not available');
     }
   }
 
-  // Todo: 이거도 실제 주소로 바꿔야함
+  // Todo: 이거 실제 주소로 연동 해야됨
   String _invitedLink = "https://invite.link/to/server";
 
   @override
@@ -89,14 +93,13 @@ class _FriendsListPageState extends State<FriendsListPage> {
             child: ListView.builder(
               itemCount: friends.length,
               itemBuilder: (context, index) {
+                final friend = friends[index];
                 return ListTile(
                   contentPadding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
-                  title: Text(friends[index], style: TextStyle(fontSize: 16)),
+                  title: Text(friend.email, style: TextStyle(fontSize: 16)),
                   trailing: ElevatedButton(
-                    onPressed: () => _inviteFriend(friends[index]),
-                    child: Text(_invitedFriends.contains(friends[index])
-                        ? 'Cancel Invite'
-                        : 'Invite'),
+                    onPressed: () => _inviteFriend(friend.email),
+                    child: Text(_invitedFriends.contains(friend.email) ? 'Cancel Invite' : 'Invite'),
                   ),
                 );
               },
