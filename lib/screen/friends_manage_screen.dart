@@ -3,14 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:discord_front/screen/add_friend_screen.dart';
 import 'package:discord_front/config/palette.dart';
 import 'package:provider/provider.dart';
+import '../auth/backend_auth.dart';
 import '../auth/token_provider.dart';
 import '../config/baseurl.dart';
 import 'package:http/http.dart' as http;
 import 'friend_request_screen.dart';
-
-void main() {
-  runApp(MaterialApp(home: FriendsManageScreen()));
-}
 
 class FriendsManageScreen extends StatefulWidget {
   @override
@@ -25,8 +22,7 @@ class _FriendsManageScreenState extends State<FriendsManageScreen> {
   int receivedcount = 10;
 
   Future<void> _handleRefresh() async {
-    await fetchRequests();
-    await fetchFriends();
+    await _loadData();
     // 새로고침 이후 UI를 업데이트하기 위해 setState를 사용할 수 있습니다.
     setState(() {});
   }
@@ -34,10 +30,7 @@ class _FriendsManageScreenState extends State<FriendsManageScreen> {
   @override
   void initState() {
     super.initState();
-    // 백엔드에서 친구 목록을 받아오는 로직
-    // 친구 목록 정렬
-    fetchRequests();
-    fetchFriends();
+    _loadData();
   }
 
   List<FriendTile> sortFriendsList(List<FriendTile> friends) {
@@ -58,83 +51,26 @@ class _FriendsManageScreenState extends State<FriendsManageScreen> {
     return map;
   }
 
-  Future<void> fetchRequests() async {
-    //fetchrequest는 항상 fetchfriends와 함께 실행되기 때문에 딱히 setstate를 쓰지 않았습니다. 근데 만약
-    //비지니스 로직이 바뀌면 setstate를 추가해야 합니다!!!!
-    final accessToken =
-        Provider.of<AuthProvider>(context, listen: false).accessToken;
-    try {
-      final response1 = await http.get(
-        Uri.parse(Baseurl.baseurl + '/friend/request/received'),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $accessToken',
-        },
-      );
-      final response2 = await http.get(
-        Uri.parse(Baseurl.baseurl + '/friend/request/send'),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $accessToken',
-        },
-      );
-      if (response1.statusCode == 200 && response2.statusCode == 200) {
-        final responseJson1 = jsonDecode(response1.body);
-        final responseJson2 = jsonDecode(response2.body);
+  Future<void> _loadData() async {
+    setState(() => isLoading = true);
 
-        setState(() {
-          sentcount = responseJson2["numberOfElements"];
-          receivedcount = responseJson1["numberOfElements"];
-        });
-      } else {
-        print(response1.statusCode);
-        print(response2.statusCode);
-      }
-    } catch (e) {
-      print('Error get friends list: $e');
+    final accessToken = Provider.of<AuthProvider>(context, listen: false).accessToken;
+    if (accessToken != null) {
+      final requests = await AuthService.fetchFriendRequests(accessToken);
+      final friends = await AuthService.fetchFriendsList(accessToken);
+
+      List<FriendTile> friendTiles = friends.map((friend) => FriendTile(
+        name: friend.nickname,
+        initial: friend.initial,
+      )).toList();
+
+      setState(() {
+        sentcount = requests["sentCount"]!;
+        receivedcount = requests["receivedCount"]!;
+        sortedFriendsList = friendTiles; // Assign the converted list
+        isLoading = false;
+      });
     }
-  }
-
-  Future<void> fetchFriends() async {
-    setState(() {
-      isLoading = true;
-    });
-    final accessToken =
-        Provider.of<AuthProvider>(context, listen: false).accessToken;
-    print("accessToken is ... " + accessToken!);
-    try {
-      final response = await http.get(
-        Uri.parse(Baseurl.baseurl + '/list/friend?page=0&size=20'),
-        //TODO: 이거 친구 젠부 가져와야 함.
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $accessToken',
-        },
-      );
-      if (response.statusCode == 200) {
-        final responseJson = jsonDecode(response.body);
-        List<FriendTile> fetchedFriendsList = [];
-
-        for (var friendData in responseJson["content"]) {
-          String nickname = friendData["nickname"];
-          String initial =
-          nickname.isNotEmpty ? nickname[0].toUpperCase() : '?';
-
-          fetchedFriendsList.add(FriendTile(name: nickname, initial: initial));
-        }
-        setState(() {
-          sortedFriendsList = sortFriendsList(fetchedFriendsList);
-          print("friends list sorted");
-        });
-      } else {
-        print(response.statusCode);
-      }
-    } catch (e) {
-      print('Error get friends list: $e');
-    }
-    setState(() {
-      isLoading = false;
-    });
   }
 
   @override
@@ -147,31 +83,6 @@ class _FriendsManageScreenState extends State<FriendsManageScreen> {
       },
       child: Scaffold(
         backgroundColor: Palette.blackColor3,
-        appBar: AppBar(
-          backgroundColor: Palette.blackColor3,
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          title: Text('친구', style: TextStyle(color: Colors.white)),
-          actions: [
-            TextButton(
-              onPressed: () {
-                // 친구 추가하기 화면으로 이동
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AddFriendScreen()),
-                );
-              },
-              child: Text('친구 추가하기', style: TextStyle(color: Palette.btnColor)),
-            ),
-          ],
-        ),
         body: RefreshIndicator(
           onRefresh: _handleRefresh,
           child: isLoading
@@ -180,6 +91,7 @@ class _FriendsManageScreenState extends State<FriendsManageScreen> {
                 )
               : Column(
                   children: [
+                    SizedBox(height: 10.0),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
@@ -248,6 +160,16 @@ class _FriendsManageScreenState extends State<FriendsManageScreen> {
                     ),
                   ],
                 ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AddFriendScreen()),
+            );
+          },
+          backgroundColor: Palette.btnColor, // 버튼 배경색 설정
+          child: Icon(Icons.add, color: Colors.white), // 플로팅 액션 버튼 아이콘
         ),
       ),
     );
@@ -343,4 +265,3 @@ class FriendRequestTile extends StatelessWidget {
     );
   }
 }
-

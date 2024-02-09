@@ -6,6 +6,7 @@ import 'package:discord_front/auth/token_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:discord_front/auth/custom_widets.dart';
 import '../auth/backend_auth.dart';
+import '../config/palette.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -60,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Stack(
           children: <Widget>[
             Image.asset(
-              'asset/img/discord_mobile_background.png',
+              'asset/img/main_backgroud.png',
               fit: BoxFit.cover,
               width: double.infinity,
               height: double.infinity,
@@ -82,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 25),
+                      SizedBox(height: 55),
                       Flexible(
                         flex: 2, // Email 입력 필드에 할당할 공간의 비율
                         child: CustomTextFormField(
@@ -91,6 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           keyboardType: TextInputType.emailAddress,
                         ),
                       ),
+                      SizedBox(height: 35),
                       Flexible(
                         flex: 2, // Password 입력 필드에 할당할 공간의 비율
                         child: CustomTextFormField(
@@ -99,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           obscureText: true,
                         ),
                       ),
-                      SizedBox(height: 30),
+                      SizedBox(height: 55),
                       Flexible(
                         flex: 1, // Login 버튼에 할당할 공간의 비율
                         child: CustomElevatedButton(
@@ -112,8 +114,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: CustomElevatedButton(
                           label: 'Signup',
                           onPressed: _signup,
-                          backgroundColor: Colors.white,
-                          textColor: Colors.black,
+                          backgroundColor: Palette.mainColor,
+                          textColor: Colors.white,
                         ),
                       ),
                     ],

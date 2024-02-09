@@ -5,13 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e338c6f2-8069-4da0-b99a-8fc05e2b2eb0" name="Changes" comment="feat: friend request">
+      <change afterPath="$PROJECT_DIR$/asset/img/main_backgroud.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/asset/img/splash_screen.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/auth/backend_auth.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/auth/backend_auth.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/auth/custom_widets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/auth/custom_widets.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/config/palette.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/config/palette.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screen/create_server_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/create_server_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screen/friends_list_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/friends_invited_server.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screen/friends_invited_server.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/friends_invited_server.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screen/friends_manage_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/friends_manage_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screen/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/login_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screen/notice_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/notice_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screen/server_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/server_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screen/signup_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/signup_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +29,13 @@
   </component>
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -52,14 +68,29 @@
       <recent name="C:\Users\dawon\programming\git\discord_front\asset\img" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/asset/img" />
       <recent name="C:\Users\dawon\programming\git\discord_front\asset\img" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Flutter.main.dart">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
       <method v="2" />
     </configuration>
+    <configuration name="test.dart" type="FlutterRunConfigurationType" factoryName="Flutter" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/lib/screen/test.dart" />
+      <method v="2" />
+    </configuration>
+    <configuration name="testsplash.dart" type="FlutterRunConfigurationType" factoryName="Flutter" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/lib/screen/testsplash.dart" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Flutter.testsplash.dart" />
+        <item itemvalue="Flutter.test.dart" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

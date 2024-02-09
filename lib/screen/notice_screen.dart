@@ -9,15 +9,6 @@ class _NoticeScreenState extends State<NoticeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('알림'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.more_vert),
-            onPressed: () => _showSettingsDialog(context),
-          ),
-        ],
-      ),
       body: RefreshIndicator(
         onRefresh: _handleRefresh,
         child: ListView.builder(
@@ -34,6 +25,11 @@ class _NoticeScreenState extends State<NoticeScreen> {
             );
           },
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _showSettingsDialog(context),
+        child: Icon(Icons.settings), // 설정 아이콘 사용
+        backgroundColor: Theme.of(context).primaryColor, // 버튼 배경색을 앱의 기본 색상으로 설정
       ),
     );
   }

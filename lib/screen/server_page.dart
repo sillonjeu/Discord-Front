@@ -21,20 +21,42 @@ class ServerPage extends StatefulWidget {
 class _ServerPageState extends State<ServerPage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   List<Myserver> serverList = [];
+  String appBarTitle = "Server Page";
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    // TabController의 리스너를 추가하여 현재 탭의 인덱스가 변경될 때마다 데이터를 새로고침하는 로직을 실행!!
+    _tabController.addListener(_handleTabSelection);
     _fetchServerList();
   }
 
   @override
   void dispose() {
-    if (_tabController != null) { // _tabController 초기화 확인
-      _tabController.dispose();
-    }
+    _tabController.removeListener(_handleTabSelection);
+    _tabController.dispose();
     super.dispose();
+  }
+
+  void _handleTabSelection() {
+    if (_tabController.indexIsChanging || _tabController.index != _tabController.previousIndex) {
+      _fetchServerList();
+      setState(() {
+        // 현재 선택된 탭에 따라 AppBar의 제목을 변경
+        switch (_tabController.index) {
+          case 0:
+            appBarTitle = "Server Page";
+            break;
+          case 1:
+            appBarTitle = "Friends Page";
+            break;
+          case 2:
+            appBarTitle = "Notice Page";
+            break;
+        }
+      });
+    }
   }
 
   Future<void> _fetchServerList() async {
@@ -58,7 +80,7 @@ class _ServerPageState extends State<ServerPage> with SingleTickerProviderStateM
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Main page'),
+        title: Text(appBarTitle),
         actions: [
           IconButton(
             icon: Icon(Icons.refresh),
@@ -81,20 +103,23 @@ class _ServerPageState extends State<ServerPage> with SingleTickerProviderStateM
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'My Page'),
         ],
         currentIndex: _tabController.index,
+        // 중요!!: BottomNavigationBar에서 탭을 전환할 때 setState를 호출하여 UI가 새로운 탭 인덱스에 맞게 업데이트
         onTap: (index) {
-          _tabController.animateTo(index);
+          setState(() {
+            _tabController.index = index;
+          });
         },
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: _tabController.index == 0 ? FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          Navigator.of(context).push(
+          Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (context) => CreateServerPage(useremail: widget.useremail),
             ),
           );
         },
-      ),
+      ) : null,
     );
   }
 

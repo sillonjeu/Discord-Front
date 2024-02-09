@@ -1,3 +1,4 @@
+import 'package:discord_front/screen/server_page.dart';
 import 'package:flutter/material.dart';
 import 'package:discord_front/config/server.dart';
 import 'dart:io';
@@ -45,7 +46,7 @@ class _CreateServerPageState extends State<CreateServerPage> {
 
         Provider.of<ServerList>(context, listen: false).addServer(newServer);
 
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => FriendsListPage(
@@ -56,6 +57,12 @@ class _CreateServerPageState extends State<CreateServerPage> {
         );
       }
     }
+  }
+
+  void _gotomain() {
+    Navigator.pushReplacement(
+      context, MaterialPageRoute(builder: (context) => ServerPage(useremail: widget.useremail))
+    );
   }
 
   @override
@@ -122,13 +129,23 @@ class _CreateServerPageState extends State<CreateServerPage> {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
-                    padding: EdgeInsets.only(bottom: 50.0),
+                    padding: EdgeInsets.only(bottom: 10.0),
                     child: CustomElevatedButton(
                       label: 'Create Server',
                       onPressed: _createServer,
                     ),
                   ),
                 ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: 10.0),
+                    child: CustomElevatedButton(
+                      label: 'Go To Main',
+                      onPressed: _gotomain,
+                    )
+                  )
+                )
               ],
             ),
           ),

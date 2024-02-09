@@ -45,13 +45,12 @@ class _FriendsListPageState extends State<FriendsListPage> {
     }
   }
 
-  // 만들 서버 보내기
+  // 만들 서버 보내기 및 페이지 이동
   Future<void> _sendServerData() async {
     final accessToken = Provider.of<AuthProvider>(context, listen: false).accessToken;
     if (accessToken != null) {
       await AuthService.sendServerData(widget.server, _invitedFriends, accessToken);
-      Navigator.push(
-        context,
+      Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => ServerPage(useremail: widget.useremail),
         ),
@@ -60,6 +59,7 @@ class _FriendsListPageState extends State<FriendsListPage> {
       CustomWidgets.showCustomDialog(context, 'Error', 'Access token is not available');
     }
   }
+
 
   // Todo: 이거 실제 주소로 연동 해야됨
   String _invitedLink = "https://invite.link/to/server";

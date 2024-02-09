@@ -6,4 +6,6 @@ class Palette{
   static const Color blackColor2 = Color(0XFF36393e);
   static const Color blackColor3 = Color(0XFF282b30);
   static const Color blackColor4 = Color(0xFF1e2124);
+  static const Color whiteColor = Color(0xFFFFFFFF);
+  static const Color mainColor = Color(0xFF00DAFF);
 }

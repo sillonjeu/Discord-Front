@@ -177,6 +177,42 @@ class AuthService {
       throw Exception('Failed to load friends list');
     }
   }
+
+  // 친구 요청 정보 조회
+  static Future<Map<String, int>> fetchFriendRequests(String accessToken) async {
+    final receivedUri = Uri.parse('${Baseurl.baseurl}/friend/request/received');
+    final sentUri = Uri.parse('${Baseurl.baseurl}/friend/request/send');
+
+    final receivedResponse = await http.get(receivedUri, headers: {'Authorization': 'Bearer $accessToken'});
+    final sentResponse = await http.get(sentUri, headers: {'Authorization': 'Bearer $accessToken'});
+
+    if (receivedResponse.statusCode == 200 && sentResponse.statusCode == 200) {
+      final receivedData = jsonDecode(receivedResponse.body);
+      final sentData = jsonDecode(sentResponse.body);
+
+      return {
+        "receivedCount": receivedData["numberOfElements"],
+        "sentCount": sentData["numberOfElements"],
+      };
+    } else {
+      print('Failed to fetch friend requests');
+      return {"receivedCount": 0, "sentCount": 0};
+    }
+  }
+
+  // 친구 목록 조회
+  static Future<List<Friend>> fetchFriendsList(String accessToken) async {
+    final uri = Uri.parse('${Baseurl.baseurl}/list/friend?page=0&size=20');
+    final response = await http.get(uri, headers: {'Authorization': 'Bearer $accessToken'});
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      return (data['content'] as List).map((e) => Friend.fromJson(e)).toList();
+    } else {
+      print('Failed to fetch friends list');
+      return [];
+    }
+  }
 }
 
 // 친구 데이터를 저장할 모델 클래스
@@ -204,4 +240,6 @@ class Friend {
       profileImage: json['profileImage'],
     );
   }
+
+  get initial => null;
 }

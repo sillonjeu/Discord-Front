@@ -55,7 +55,7 @@ class _SignupScreenState extends State<SignupScreen> {
         child: Stack(
           children: <Widget>[
             Image.asset(
-              'asset/img/discord_signup_background.png',
+              'asset/img/main_backgroud.png',
               fit: BoxFit.cover,
               width: double.infinity,
               height: double.infinity,
@@ -71,23 +71,26 @@ class _SignupScreenState extends State<SignupScreen> {
                         child: Text(
                           'Create Account',
                           textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.white, fontSize: 24.0, fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Colors.black, fontSize: 24.0, fontWeight: FontWeight.bold),
                         ),
                       ),
                       // 하 이 방법 쓰는거 싫은데 이거 말고 없냐 추천좀
-                      SizedBox(height: 20),
+                      SizedBox(height: 30),
                       Flexible(
                         flex: 2,
                         child: CustomTextFormField(controller: _usernameController, label: 'Username'),
                       ),
+                      SizedBox(height: 20),
                       Flexible(
                         flex: 2,
                         child: CustomTextFormField(controller: _emailController, label: 'Email', keyboardType: TextInputType.emailAddress),
                       ),
+                      SizedBox(height: 20),
                       Flexible(
                         flex: 2,
                         child: CustomTextFormField(controller: _passwordController, label: 'Password', obscureText: true),
                       ),
+                      SizedBox(height: 20),
                       Flexible(
                         flex: 2,
                         child: CustomDatePickerDropdown(
@@ -100,7 +103,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           onDayChanged: (value) => setState(() => _selectedDay = value!),
                         ),
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 20),
                       Flexible(
                         flex: 1,
                         child: CustomElevatedButton(label: 'Register', onPressed: _registerAccount),
@@ -111,7 +114,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           onPressed: () => Navigator.pop(context),
                           child: Text(
                             'Already have an account? Login',
-                            style: TextStyle(color: Colors.white70),
+                            style: TextStyle(color: Colors.black),
                           ),
                         ),
                       ),

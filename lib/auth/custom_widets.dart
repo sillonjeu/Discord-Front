@@ -11,7 +11,6 @@ class CustomContainer extends StatelessWidget {
     required this.child,
     this.padding = const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
     this.decoration = const BoxDecoration(
-      color: Palette.blackColor1,
       borderRadius: BorderRadius.all(Radius.circular(20.0)),
     ),
   });
@@ -49,38 +48,30 @@ class CustomContainer extends StatelessWidget {
 class CustomTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final String label;
-  final bool obscureText;
   final TextInputType keyboardType;
+  final bool obscureText;
 
-  CustomTextFormField({
+  const CustomTextFormField({
+    Key? key,
     required this.controller,
     required this.label,
-    this.obscureText = false,
     this.keyboardType = TextInputType.text,
-  });
+    this.obscureText = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: TextStyle(color: Colors.white, fontSize: 16.0),
-        ),
-        SizedBox(height: 8.0),
-        TextFormField(
-          controller: controller,
-          obscureText: obscureText,
-          keyboardType: keyboardType,
-          style: TextStyle(color: Colors.white),
-          decoration: InputDecoration(
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0)),
-            fillColor: Palette.blackColor4,
-            filled: true,
-          ),
-        ),
-      ],
+    return TextFormField(
+      controller: controller,
+      keyboardType: keyboardType,
+      obscureText: obscureText,
+      decoration: InputDecoration(
+        hintText: label, // 옅은 회색 글씨로 표시될 텍스트
+        hintStyle: TextStyle(color: Colors.grey), // 힌트 스타일을 옅은 회색으로 설정
+        border: OutlineInputBorder(), // 입력 필드의 외곽선 스타일
+        filled: true, // 입력 필드 배경색 사용 설정
+        fillColor: Colors.white, // 입력 필드 배경색을 흰색으로 설정
+      ),
     );
   }
 }
@@ -185,7 +176,7 @@ class CustomDatePickerDropdown extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Date', style: TextStyle(color: Colors.white, fontSize: 16.0)),
+        Text('Date', style: TextStyle(color: Colors.black, fontSize: 16.0)),
         SizedBox(height: 8.0),
         Row(
           children: [
@@ -209,7 +200,7 @@ class CustomDatePickerDropdown extends StatelessWidget {
   Widget _buildDropdownWithTheme(List<String> items, String selectedValue, ValueChanged<String?> onChanged, BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(
-        canvasColor: Palette.blackColor4,
+        canvasColor: Palette.whiteColor,
       ),
       child: _buildDropdown(items, selectedValue, onChanged),
     );
@@ -222,12 +213,12 @@ class CustomDatePickerDropdown extends StatelessWidget {
       items: items.map((String value) {
         return DropdownMenuItem<String>(
           value: value,
-          child: Text(value, style: TextStyle(color: Colors.white)),
+          child: Text(value, style: TextStyle(color: Colors.black)),
         );
       }).toList(),
       decoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0)),
-        fillColor: Palette.blackColor4,
+        fillColor: Palette.whiteColor,
         filled: true,
       ),
     );
