@@ -1,182 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="NONE" />
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/main.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
-  <component name="ChangeListManager">
-    <list default="true" id="e338c6f2-8069-4da0-b99a-8fc05e2b2eb0" name="Changes" comment="feat: friend request">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screen/add_friend_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/add_friend_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screen/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screen/home_screen.dart" afterDir="false" />
-    </list>
-    <option name="SHOW_DIALOG" value="false" />
-    <option name="HIGHLIGHT_CONFLICTS" value="true" />
-    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
-    <option name="LAST_RESOLUTION" value="IGNORE" />
+  <component name="ToolWindowManager">
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+    </layout>
   </component>
-  <component name="ClangdSettings">
-    <option name="formatViaClangd" value="false" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <option name="show-excluded-files" value="false" />
+      </pane>
+    </panes>
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="ProjectId" id="2b4z4OYNVigrdolSTaoRvme7Vx6" />
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "ScreenRecorder.SavePath": "C:\\Users\\dawon\\Videos\\hansori",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "Lee",
-    "io.flutter.reload.alreadyRun": "true",
-    "last_opened_file_path": "C:/Users/dawon/Videos/hansori",
-    "show.migrate.to.gradle.popup": "false"
-  }
-}]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\dawon\programming\git\discord_front\asset\img" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\dawon\programming\git\discord_front\asset\img" />
-    </key>
-  </component>
-  <component name="RunManager">
-    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
-      <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
-      <method v="2" />
-    </configuration>
-  </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
-  <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="e338c6f2-8069-4da0-b99a-8fc05e2b2eb0" name="Changes" comment="" />
-      <created>1705488994679</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1705488994679</updated>
-    </task>
-    <task id="LOCAL-00001" summary="feat: re initiate project, to organize folder structure">
-      <option name="closed" value="true" />
-      <created>1705489181750</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1705489181750</updated>
-    </task>
-    <task id="LOCAL-00002" summary="feat: re initiate project, to organize folder structure">
-      <option name="closed" value="true" />
-      <created>1705489849930</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1705489849930</updated>
-    </task>
-    <task id="LOCAL-00003" summary="feat: login skeleton">
-      <option name="closed" value="true" />
-      <created>1705490651873</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1705490651873</updated>
-    </task>
-    <task id="LOCAL-00004" summary="feat: login_screen.dart background, Color init">
-      <option name="closed" value="true" />
-      <created>1705677555463</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1705677555463</updated>
-    </task>
-    <task id="LOCAL-00005" summary="feat: login_screen.dart almost done and signup_screen.dart init">
-      <option name="closed" value="true" />
-      <created>1705684423870</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1705684423870</updated>
-    </task>
-    <task id="LOCAL-00006" summary="feat: signup_screen.dart done">
-      <option name="closed" value="true" />
-      <created>1705691981860</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1705691981860</updated>
-    </task>
-    <task id="LOCAL-00007" summary="fix: signup_screen.dart login_screen.dart form validation logic fixed">
-      <option name="closed" value="true" />
-      <created>1705692237776</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1705692237776</updated>
-    </task>
-    <task id="LOCAL-00008" summary="feat: signup_screen.dart login_screen.dart button change">
-      <option name="closed" value="true" />
-      <created>1705702151197</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1705702151197</updated>
-    </task>
-    <task id="LOCAL-00009" summary="feat: emailverify_screen.dart and all screens dialogs">
-      <option name="closed" value="true" />
-      <created>1705705648573</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1705705648573</updated>
-    </task>
-    <task id="LOCAL-00010" summary="feat: jwt handling implemented, it would have a lot of errors">
-      <option name="closed" value="true" />
-      <created>1705769030338</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1705769030338</updated>
-    </task>
-    <task id="LOCAL-00011" summary="feat: friend_manage_screen friend list backend linking but it token refreshing is not implemented">
-      <option name="closed" value="true" />
-      <created>1706862074292</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1706862074292</updated>
-    </task>
-    <task id="LOCAL-00012" summary="feat: friend request backend linking but refreshing token is not implemented">
-      <option name="closed" value="true" />
-      <created>1706943281808</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1706943281808</updated>
-    </task>
-    <option name="localTasksCounter" value="13" />
-    <servers />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: re initiate project, to organize folder structure" />
-    <MESSAGE value="feat: login skeleton" />
-    <MESSAGE value="feat: login_screen.dart background, Color init" />
-    <MESSAGE value="feat: login_screen.dart almost done and signup_screen.dart init" />
-    <MESSAGE value="feat: signup_screen.dart done" />
-    <MESSAGE value="fix: signup_screen.dart login_screen.dart form validation logic fixed" />
-    <MESSAGE value="feat: signup_screen.dart login_screen.dart button change" />
-    <MESSAGE value="feat: emailverify_screen.dart and all screens dialogs" />
-    <MESSAGE value="feat: jwt handling implemented, it would have a lot of errors" />
-    <MESSAGE value="feat: friend_manage_screen friend list backend linking but it token refreshing is not implemented" />
-    <MESSAGE value="feat: friend request backend linking but refreshing token is not implemented" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: friend request backend linking but refreshing token is not implemented" />
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="dart.analysis.tool.window.force.activate" value="true" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
 </project>

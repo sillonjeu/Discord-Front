@@ -1,30 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:discord_front/screen/login_screen.dart';
-import 'package:provider/provider.dart';
-import 'config/server_list.dart';
-//import 'package:discord_front/screen/home_screen.dart';
-import 'package:discord_front/auth/token_provider.dart';
+import 'screens/homePage.dart';
+import 'package:stomp_dart_client/stomp.dart';
+import 'package:stomp_dart_client/stomp_config.dart';
+import 'package:stomp_dart_client/stomp_frame.dart';
 
-void main() {
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => ServerList()),
-        ChangeNotifierProvider(create: (context) => AuthProvider()),
-      ],
-      child: MyApp(),
-    ),
-  );
+
+void main()
+{
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp(  
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
       debugShowCheckedModeBanner: false,
-      title: 'Discord_Front',
-      home: LoginScreen(),
+      home: HomePage(),
     );
   }
 }

@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-<<<<<<< HEAD
-      <module fileurl="file://$PROJECT_DIR$/.idea/Discord-Front.iml" filepath="$PROJECT_DIR$/.idea/Discord-Front.iml" />
-=======
-      <module fileurl="file://$PROJECT_DIR$/discord_front.iml" filepath="$PROJECT_DIR$/discord_front.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android/discord_front_android.iml" filepath="$PROJECT_DIR$/android/discord_front_android.iml" />
->>>>>>> origin/Lee
+      <module fileurl="file://$PROJECT_DIR$/hansoridiscord.iml" filepath="$PROJECT_DIR$/hansoridiscord.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/hansoridiscord_android.iml" filepath="$PROJECT_DIR$/android/hansoridiscord_android.iml" />
     </modules>
   </component>
 </project>
