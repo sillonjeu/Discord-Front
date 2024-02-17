@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hansoridiscord/screens/chatPage.dart';
-import 'package:hansoridiscord/screens/ServerListPage.dart';
+import 'package:Discord-Front/screens/chatPage.dart';
+import 'package:Discord-Front/screens/ServerListPage.dart';
 
 class HomePage extends StatefulWidget{
   @override

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hansoridiscord/models/chatMessageModel.dart';
+import 'package:Discord-Front/models/chatMessageModel.dart';
 
 class ChatDetailPage extends StatefulWidget{
   @override

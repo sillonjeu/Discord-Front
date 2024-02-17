@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:stomp_dart_client/stomp.dart';
 import 'package:stomp_dart_client/stomp_config.dart';
@@ -13,7 +12,7 @@ abstract class JsonSerializable {
 }
 
 void connectStomp() {
-  final String jwtToken = "";
+  final String jwtToken = "Access";
 
   final stompClient = StompClient(
     config: StompConfig(
@@ -24,7 +23,6 @@ void connectStomp() {
       beforeConnect: () async {
         print("Connecting to STOMP server...");
         await Future.delayed(Duration(milliseconds: 200));
-      
       },
       onWebSocketError: (dynamic error) => print(error.toString()),
       stompConnectHeaders: {'Authorization': 'Bearer $jwtToken'},
@@ -36,9 +34,9 @@ void connectStomp() {
 }
 
 //서버에 원하는 경로 subscribe하기
-void subscribeToServerResponse(StompClient stompclient) {
+void subscribeToServerResponse(StompClient stompclient, String destURL) {
   stompclient.subscribe(
-    destination: '/user/queue/response', // 서버가 응답을 보낼 주제
+    destination: destURL, // 서버가 응답을 보낼 주제
     callback: (StompFrame frame) {
       // 서버로부터 응답 데이터 수신
       if (frame.body != null) {
@@ -50,12 +48,12 @@ void subscribeToServerResponse(StompClient stompclient) {
 }
 
 //서버에 데이터 전송
-void sendDataToServer<T extends JsonSerializable>(StompClient stompclient, T data)
+void sendDataToServer<T extends JsonSerializable>(StompClient stompclient, T data, String destURL)
 {
   final dataJson = json.encode(data.toJson());
 
   stompclient.send(
-    destination: 'app/data/add',
+    destination: destURL,
     body: dataJson,
     );
 }

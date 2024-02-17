@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hansoridiscord/models/chatMessageModel.dart';
+import 'package:Discord-Front/models/chatMessageModel.dart';
 
 class ServerChatPage extends StatefulWidget{
   @override
@@ -13,14 +13,14 @@ class _ChatDetailPageState extends State<ServerChatPage> {
   {
     if(_controller.text.isNotEmpty){
       setState(() {
-        messages.add(ServerMessage(messageContent: _controller.text, user: "사용자 1", imageURL: ""));
+        
         _controller.clear();
       });
     }
   }
   @override
   List<ServerMessage> messages = [
-    ServerMessage(messageContent: "안녕하세요", user: "사용자 1", imageURL: "")
+    
   ];
 
   

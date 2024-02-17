@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hansoridiscord/models/chatUsersModel.dart';
-import 'package:hansoridiscord/widgets/conversationList.dart';
+import 'package:Discord-Front/models/chatUsersModel.dart';
+import 'package:Discord-Front/widgets/conversationList.dart';
 
 class ChatPage extends StatefulWidget {
   @override
